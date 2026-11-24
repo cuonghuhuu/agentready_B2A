@@ -18,7 +18,9 @@ You are an implementation agent. Make useful changes in the target project, not 
 
 3. Connect the target's actual public data to `data/agentready-products.json` or a safe export. If the storefront already exports a local public Shopify `/products.json`, WooCommerce Store API JSON, or Schema.org JSON-LD catalog inside the project, normalize it through the allowlisted importer (which validates variants through `src/commerce-model.mjs`):
 
-   `node <skill>/bin/agentready.mjs import --project <target> --source <relative-export.json> [--format auto|shopify|woocommerce|jsonld] [--currency USD] [--trusted-public-source] [--allow-attributes color,size] --force`
+   `node <skill>/bin/agentready.mjs import --project <target> --source <relative-export.json> [--format auto|shopify|woocommerce|jsonld] [--currency USD] [--trusted-public-source] [--allow-attributes color,size]`
+
+   Use `--force` only after the developer approves replacing the existing catalog. Use `--trusted-public-source` or custom attribute keys only after explicit review of provenance and public visibility.
 
    **Public-Source Trust Contract:**
    - **Shopify:** Requires reliable parent publication evidence (`published_at` past ISO timestamp or `published: true`, active status) AND explicit per-variant publication evidence (`variant.published: true` or past `variant.published_at`), unless the developer explicitly attests a verified public storefront export via `--trusted-public-source`. Availability alone never establishes publication.
@@ -33,7 +35,7 @@ You are an implementation agent. Make useful changes in the target project, not 
    `node <skill>/bin/agentready.mjs generate --project <target>`
 
    Generation refuses existing output and symlink escapes. Use `--force` only after reviewing the exact AgentReady-owned files that will be replaced.
-5. For Next.js, the optional `@agentmarkup/next` adapter helper is `src/integrations/agentmarkup-next.mjs`. Use it with AgentMarkup's `withAgentmarkup()` and let AgentMarkup own `llms.txt`. Follow current upstream guidance for dynamic SSR routes; the helper does not add product JSON-LD to those pages.
+5. For Next.js, the optional `@agentmarkup/next` adapter helper is `src/integrations/agentmarkup-next.mjs`. Use it with AgentMarkup's `withAgentmarkup()`. AgentReady always emits `public/llms.txt`; explicitly reconcile ownership and build order before using both generators. Follow current upstream guidance for dynamic SSR routes; the helper does not add product JSON-LD to those pages.
 6. Optionally load `/agentready/webmcp-products.js` as a module after generating the catalog. It exposes only read-only product search (with variant-isolated matching, currency-safe `maxPrice` filtering, and compact `matchingOffers` summaries reflecting matched variant price/availability) and full-detail product lookup from the public snapshot. WebMCP is experimental and must be checked in an actual compatible browser. For route-wide inventory, use the WebMCPify skill and its approval manifest.
 7. Verify the generated files:
 

@@ -65,7 +65,7 @@ The snapshot does not automatically refresh when source products, prices, or sto
 - **Filesystem boundary:** both `importCatalog` and `generate` enforce project-directory containment, block source/output path collisions, refuse overwrites without `--force`, and reject symlink traversals or symlink output targets.
 - **WebMCP boundary:** the provided tools only search or read the generated snapshot. Variant-isolated search separates product-level fields from variant-specific attribute keys and sibling SKUs, evaluates query terms, `maxPrice`, `currency`, and `availability` on the same matching variant, refuses cross-currency `maxPrice` comparisons without an explicit `currency`, and reports the actual matched variants' price/availability plus compact `matchingOffers` while reserving full `variants` for `agentready_get_product`. Browsers without WebMCP do not register these tools.
 - **Structured data:** the standalone JSON-LD artifact is **not** automatically embedded into product detail HTML.
-- **AgentMarkup:** optional Next.js helper delegates ownership of `llms.txt` to AgentMarkup to prevent output collisions.
+- **AgentMarkup:** optional Next.js helper provides configuration only. AgentReady always emits `public/llms.txt`; developers must explicitly reconcile file ownership and build order. Automatic coexistence is unverified.
 
 ## Verification levels
 

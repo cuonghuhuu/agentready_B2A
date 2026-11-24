@@ -848,3 +848,15 @@ test('QA-EDGE-4: JSON-LD ItemList marked published:false prevents exporting nest
   assert.equal(res.skipped.length, 1);
   assert.match(res.skipped[0].reason, /ancestor|private|unpublished/i);
 });
+
+test('safe: force import cannot overwrite the AgentReady configuration', async t => {
+  const dir = await makeProject(t, 'https://shop.example');
+  const configPath = path.join(dir, 'agentready.config.json');
+  const config = JSON.parse(await fs.readFile(configPath, 'utf8'));
+  config.publicProductsPath = 'agentready.config.json';
+  const original = JSON.stringify(config);
+  await fs.writeFile(configPath, original);
+  await fs.writeFile(path.join(dir, 'data/export.json'), JSON.stringify({ products: [] }));
+  await assert.rejects(() => importCatalog(dir, { source: 'data/export.json', format: 'shopify', force: true }), /must not overwrite agentready.config.json/);
+  assert.equal(await fs.readFile(configPath, 'utf8'), original);
+});

@@ -121,7 +121,7 @@ const agentMarkupConfig = createAgentMarkupConfig({
 export default withAgentmarkup(agentMarkupConfig, nextConfig);
 ```
 
-Let **AgentMarkup own `llms.txt`** in this setup to avoid generator collisions. The helper does not inject JSON-LD into dynamic product pages; render page-level structured data from the same authoritative server-side product values.
+AgentReady currently always generates `public/llms.txt`. Do not run two generators over that path without reviewing ownership and build order; automatic coexistence has not been verified. If using AgentMarkup, explicitly reconcile its discovery output with the AgentReady catalog links. The helper does not inject JSON-LD into dynamic product pages; render page-level structured data from the same authoritative server-side product values.
 
 ### Optional read-only WebMCP tools
 

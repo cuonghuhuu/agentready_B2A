@@ -35,9 +35,14 @@
 - **Command:** `git apply --check agentready-v0.3-integrated.patch` on clean `feature/v0.3-commerce-variants` (`f8070dfc`)
 - **Result:** **Passed** (clean apply with zero conflicts).
 
+## Independent verification of the integrated baseline
+
+- Commit `fceabdb2573f9139a52fe863f8efaf4fb5cf9939`: Linux Node.js 22.16.0, 29/29 tests passed; demo, verification and packaging passed.
+- GitHub Actions [45350980470](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45350980470): all four Node.js 20/22 Windows/Linux jobs passed tests, demo and verification.
+- Release-candidate follow-up adds two source/configuration collision regressions. New CI evidence is required for that revision; the earlier run is not evidence for changed code.
+
 ## Not run / unverified
 
-- **Node.js 20 / 22 execution of this final edge-case revision:** Not available in this sandbox; run `npm test` on Node 20+ (or GitHub Actions CI) to confirm all 29 tests pass.
 - **Real storefront integration:** Actual Next.js build with `@agentmarkup/next` installed in a live storefront.
 - **Real browser WebMCP evaluation:** Google Chrome Labs WebMCP Evals (`examples/ecommerce-demo/webmcp-evals.json`) against a WebMCP-capable browser; unit tests simulate `document.modelContext` only.
 - **Live deployment & inventory:** Live store APIs, real-time stock/price sync, checkout/payment flows, and external agent discovery.

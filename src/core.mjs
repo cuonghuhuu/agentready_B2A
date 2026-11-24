@@ -173,7 +173,7 @@ async function loadSite(root) {
   const products=published.map((p,i)=>validProduct(p,i,origin)).sort((a,b)=>a.id.localeCompare(b.id));
   const ids=new Set();
   for (const product of products) { assert(!ids.has(product.id), `Duplicate product id: ${product.id}`); ids.add(product.id); }
-  return {origin,siteName,siteDescription,sourcePath,products,webmcp:config.webmcp===true};
+  return {origin,siteName,siteDescription,sourcePath:realSource,products,webmcp:config.webmcp===true};
 }
 function makeJsonLd(site) {
   return {
@@ -251,6 +251,13 @@ export async function generate(project,{force=false}={}) {
   for (const file of OUTPUT_FILES) {
     const outFile = path.join(pub, file);
     await assertSafeOutputFile(root, outFile);
+    // The public source must never be replaced by a generated resource, even with --force.
+    if (await exists(outFile)) {
+      const resolved = await fs.realpath(outFile);
+      const sourceStat = await fs.stat(site.sourcePath);
+      const outputStat = await fs.stat(outFile);
+      assert(resolved !== site.sourcePath && !(sourceStat.dev === outputStat.dev && sourceStat.ino === outputStat.ino), 'Source and generated output must not resolve to the same file');
+    }
     if (!force) {
       assert(!await exists(outFile), `Output already exists: public/${file}. Use --force for regeneration.`);
     }

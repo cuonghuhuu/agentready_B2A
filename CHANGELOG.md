@@ -4,6 +4,8 @@ Notable documented changes to AgentReady B2A are recorded here. This file descri
 
 ## [Unreleased]
 
+## [0.3.0-alpha.1] — Release candidate (not yet published)
+
 ### Added (development)
 - Optional explicitly-published product variant normalization (`src/commerce-model.mjs`) with canonical `label`, duplicate SKU/ID checks, parent-currency validation, and variant-specific offer metadata.
 - Local public catalog import adapters (`src/adapters.mjs` and `agentready import` CLI subcommand) for Shopify `/products.json`, WooCommerce Store API JSON, and Schema.org JSON-LD, reusing `src/commerce-model.mjs` validation.
@@ -16,6 +18,8 @@ Notable documented changes to AgentReady B2A are recorded here. This file descri
 - **BUG-004 (Private JSON-LD & container rejection):** Rejected JSON-LD products, offers, and nested products under private, hidden, draft, archived, or `published: false` ancestor containers (`ItemList`, `ListItem`, `@graph`), and documented the public-source trust contract for all three importers.
 - Prevented raw cross-currency `maxPrice` comparisons in WebMCP search and JSON-LD offer aggregation; multi-currency catalogs require an explicit ISO 4217 `currency` parameter when filtering by `maxPrice`.
 - Validated WooCommerce `currency_minor_unit` scaling, blocked source/output path collisions, and added symlink output escape protection in both `importCatalog` and `generate`.
+
+- Prevented forced generation from overwriting its configured source and forced import from overwriting the AgentReady configuration; added regression tests.
 
 ### Documentation
 - Updated `README.md`, `ARCHITECTURE.md`, `TEST_REPORT.md`, and `skills/agentready/SKILL.md` with the public-source trust contract, attribute allowlist, and variant-isolated WebMCP search behavior.

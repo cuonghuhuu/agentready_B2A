@@ -130,3 +130,18 @@ test('no-WebMCP browser is a harmless no-op',async t=>{
   t.after(()=>{delete globalThis.document;delete globalThis.window;});
   await import(`${pathToFileURL(path.resolve('src/webmcp-products.js')).href}?fallback=${Date.now()}`);
 });
+
+test('safe: force generation cannot overwrite the configured product source', async t => {
+  const dir = await fixture(t);
+  const configPath = path.join(dir, 'agentready.config.json');
+  const config = JSON.parse(await fs.readFile(configPath, 'utf8'));
+  const original = await fs.readFile(path.join(dir, config.publicProductsPath), 'utf8');
+  config.publicProductsPath = 'public/agentready/catalog.json';
+  const source = path.join(dir, config.publicProductsPath);
+  await fs.mkdir(path.dirname(source), { recursive: true });
+  await fs.writeFile(source, original);
+  await fs.writeFile(configPath, JSON.stringify(config));
+  await assert.rejects(() => generate(dir, { force: true }), /Source and generated output must not resolve to the same file/);
+  assert.equal(await fs.readFile(source, 'utf8'), original);
+  await assert.rejects(() => fs.access(path.join(dir, 'public/llms.txt')), { code: 'ENOENT' });
+});

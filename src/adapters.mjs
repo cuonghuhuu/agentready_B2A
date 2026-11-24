@@ -875,6 +875,14 @@ export async function importCatalog(project, {
     resolvedOutput = path.join(await fs.realpath(outParent), path.basename(outputPath));
   }
   assert(realSource !== resolvedOutput, 'Source and output paths must not resolve to the same file');
+  assert(resolvedOutput !== await fs.realpath(configPath), 'Catalog output must not overwrite agentready.config.json');
+  if (await exists(outputPath)) {
+    const sourceStat = await fs.stat(realSource);
+    const outputStat = await fs.stat(outputPath);
+    const configStat = await fs.stat(configPath);
+    assert(!(sourceStat.dev === outputStat.dev && sourceStat.ino === outputStat.ino), 'Source and output paths must not resolve to the same file');
+    assert(!(configStat.dev === outputStat.dev && configStat.ino === outputStat.ino), 'Catalog output must not overwrite agentready.config.json');
+  }
 
   if (!force && await exists(outputPath)) {
     throw new Error(`Refusing to overwrite ${outputPath}. Use --force to replace existing products file.`);
