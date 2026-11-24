@@ -7,7 +7,7 @@
   <a href="README.vi.md"><img alt="Tiếng Việt" src="docs/assets/language-vi.png" height="36"></a>
 </p>
 <p align="center">
-  <a href="package.json"><img alt="Source v0.3.0-alpha.2" src="docs/assets/source-version.svg"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.2"><img alt="Release v0.3.0-alpha.2" src="docs/assets/source-version.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml/badge.svg?branch=main"></a>
   <a href="LICENSE"><img alt="MIT" src="docs/assets/license-badge.svg"></a>
   <a href="package.json"><img alt="Node.js 20+" src="docs/assets/node-badge.svg"></a>
@@ -26,7 +26,7 @@
 > **Phiên bản Alpha thử nghiệm.** AgentReady là bộ công cụ cho lập trình viên và Agent Skill độc lập có thể cài đặt, không phải bot mua hàng hay API thương mại trực tiếp. Chưa xác minh tích hợp storefront thực tế, chạy trực tiếp trong các coding agent bên thứ ba và WebMCP trên trình duyệt thật.
 
 > [!NOTE]
-> **Mã nguồn v0.3.0-alpha.2 — chuẩn bị phát hành.** Tag GitHub mới chưa được tạo. CI của PR #8 đạt 6/6 (Node 20/22, Windows/Linux/macOS); runtime đóng gói đã được kiểm thử độc lập. Cài đặt qua mạng bằng Skills CLI, gọi Skill trong các agent thật và cập nhật/gỡ cài đặt chưa được kiểm chứng. Hãy thử trên workspace riêng trước.
+> **v0.3.0-alpha.2 — Alpha thử nghiệm đã phát hành.** [CI bản phát hành](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45382536951) đạt 6/6 (Node 20/22, Windows/Linux/macOS). Cài đặt qua mạng bằng Skills CLI, kích hoạt trong Agent thật và cập nhật/gỡ cài đặt chưa được kiểm chứng. Hãy thử trên workspace riêng trước.
 
 ## Cài đặt Agent Skill đa nền tảng
 
@@ -45,8 +45,8 @@ npx skills add cuonghuhuu/agentready_B2A --skill agentready -g
 | Agent Skill · v0.3 Alpha | AI Readiness Scanner · v0.4 Preview |
 | :--- | :--- |
 | **Dành cho lập trình viên.** Cài Skill tự chứa vào coding agent tương thích, kết nối dữ liệu sản phẩm công khai và sinh tài nguyên cho AI. | **Dành cho người muốn đánh giá website.** Nhập URL công khai, nhận điểm theo tiêu chí và báo cáo minh chứng. |
-| [Cài đặt Agent Skill](#cài-đặt-agent-skill-đa-nền-tảng) · [Bản Alpha 1 đã phát hành](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [Xem giao diện Scanner](#scanner-thử-nghiệm) · [Mở nhánh V0.4](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
-| Mã nguồn Alpha 2 tự chứa; tag Alpha 2 đang chuẩn bị. | Bản phát triển cục bộ; chưa phát hành, còn lỗi QA. |
+| [Cài đặt Agent Skill](#cài-đặt-agent-skill-đa-nền-tảng) · [Tải bản Alpha 2](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.2) | [Xem giao diện Scanner](#scanner-thử-nghiệm) · [Mở nhánh V0.4](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
+| Alpha 2 đã phát hành; chưa kiểm chứng kích hoạt agent thật. | Bản phát triển cục bộ; chưa phát hành, còn lỗi QA. |
 
 ## Vì sao cần AgentReady?
 

@@ -1,6 +1,6 @@
 # AgentReady B2A — Universal Agent Skill Installation & Compatibility
 
-> Alpha 2 release preparation: live network installation, agent activation, update and removal remain unverified. PR #8 CI passed six jobs; these are trial instructions, not a compatibility guarantee.
+> Published Alpha 2: live network installation, agent activation, update and removal remain unverified. PR #8 CI passed six jobs; these are trial instructions, not a compatibility guarantee.
 
 AgentReady B2A ships a **self-contained, portable Agent Skill** (`skills/agentready/`) following the [Agent Skills open specification](https://agentskills.io/specification) and installable via the [Vercel Skills CLI](https://github.com/vercel-labs/skills).
 

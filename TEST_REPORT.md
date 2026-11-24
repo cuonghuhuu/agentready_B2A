@@ -113,3 +113,8 @@ Local file verification does not prove deployed behavior or real-time price and 
 - Maintainer's Windows 11 / Node 24.14.0: 13/13 package files matched; 34/35 tests passed. One pre-existing test could not create a symlink (EPERM), so its security assertions were not executed. No elevation or Developer Mode change was performed.
 - Local reconstructed Alpha 2 source, Node 22.16.0 on Linux: regenerated package, drift check 13/13, 35/35 tests, demo and verify passed. Versioned file blob hashes matched the integration tree.
 - Live Skills CLI network installation, agent invocation, update/removal, real storefront and browser WebMCP remain unverified. The new tag is not yet published.
+
+## Published Alpha 2
+
+- Tag `v0.3.0-alpha.2` verified at commit `182199c2596983bd66d5c59f93abc5da3b77ea43`.
+- [Release CI](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45382536951): six of six successful jobs. Live client verification remains pending.

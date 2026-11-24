@@ -6,9 +6,9 @@ Notable documented changes to AgentReady B2A are recorded here. This file descri
 
 ## [Unreleased]
 
-- Release tag for v0.3.0-alpha.2 is pending.
+- No additional runtime changes.
 
-## [0.3.0-alpha.2] — source prepared, not published
+## [0.3.0-alpha.2] — 2026-11-24 — [GitHub release](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.2)
 
 - Portable `agentready` skill with its own runtime, license and references.
 - Reproducible packaging and CI drift checks; four distribution tests (35 total).

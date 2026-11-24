@@ -7,7 +7,7 @@
   <a href="README.vi.md"><img alt="Tiếng Việt" src="docs/assets/language-vi.png" height="36"></a>
 </p>
 <p align="center">
-  <a href="package.json"><img alt="Source v0.3.0-alpha.2" src="docs/assets/source-version.svg"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.2"><img alt="Release v0.3.0-alpha.2" src="docs/assets/source-version.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml/badge.svg?branch=main"></a>
   <a href="LICENSE"><img alt="MIT" src="docs/assets/license-badge.svg"></a>
   <a href="package.json"><img alt="Node.js 20+" src="docs/assets/node-badge.svg"></a>
@@ -26,7 +26,7 @@
 > **Experimental alpha.** AgentReady is a developer toolkit and portable Agent Skill, not a shopping bot or a live commerce API. Real storefront builds, live third-party agent execution, and browser interoperability are not yet independently verified.
 
 > [!NOTE]
-> **Source v0.3.0-alpha.2 — release preparation.** The new GitHub tag has not been published. PR #8 passed all six CI jobs (Node 20/22 on Windows/Linux/macOS); the packaged runtime passed independent tests. Network installation via Skills CLI, live agent activation and update/removal are not yet verified. Try in a disposable workspace first.
+> **v0.3.0-alpha.2 — published experimental alpha.** [Release CI](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45382536951) passed all six jobs (Node 20/22 on Windows/Linux/macOS). Live network installation via Skills CLI, agent activation and update/removal remain unverified. Try in a disposable workspace first.
 
 ## Install as a Universal Agent Skill
 
@@ -45,8 +45,8 @@ npx skills add cuonghuhuu/agentready_B2A --skill agentready -g
 | Agent Skill · v0.3 Alpha | AI Readiness Scanner · v0.4 Preview |
 | :--- | :--- |
 | **For developers.** Install the self-contained skill in a compatible coding agent, map approved public commerce data and generate AI-readable resources. | **For website owners and developers.** Enter a public URL, inspect evidence and receive a criterion-based readiness score. |
-| [Install the Agent Skill](#install-as-a-universal-agent-skill) · [Published Alpha 1](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [See the scanner](#scanner-preview) · [Open V0.4 branch](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
-| Self-contained Alpha 2 source; release tag pending. | Unreleased local development preview; QA blockers remain. |
+| [Install the Agent Skill](#install-as-a-universal-agent-skill) · [Get Alpha 2](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.2) | [See the scanner](#scanner-preview) · [Open V0.4 branch](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
+| Published Alpha 2; live agent activation unverified. | Unreleased local development preview; QA blockers remain. |
 
 ## Why AgentReady?
 

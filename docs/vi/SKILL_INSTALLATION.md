@@ -1,6 +1,6 @@
 # AgentReady B2A — Cài đặt Agent Skill Đa Nền Tảng & Ma Trận Tương Thích
 
-> Bản Alpha 2 chuẩn bị phát hành: cài đặt qua mạng, kích hoạt agent thật, cập nhật/gỡ cài đặt chưa kiểm chứng. CI PR #8 đã đạt 6/6; đây là hướng dẫn thử nghiệm, không phải cam kết tương thích.
+> Bản Alpha 2 đã phát hành: cài đặt qua mạng, kích hoạt agent thật, cập nhật/gỡ cài đặt chưa kiểm chứng. CI PR #8 đã đạt 6/6; đây là hướng dẫn thử nghiệm, không phải cam kết tương thích.
 
 AgentReady B2A cung cấp **Agent Skill tự chứa, độc lập** (`skills/agentready/`) tuân thủ [đặc tả mở Agent Skills](https://agentskills.io/specification) và có thể cài đặt bằng [Vercel Skills CLI](https://github.com/vercel-labs/skills).
 

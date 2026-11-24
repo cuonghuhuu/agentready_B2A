@@ -1,6 +1,6 @@
 # AgentReady B2A v0.3.0-alpha.2
 
-**Release preparation — experimental alpha.** The source is prepared; publishing the new GitHub pre-release tag is a separate maintainer action.
+**Published experimental alpha.** [GitHub Release](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.2) points to commit `182199c`. [Release CI](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45382536951) passed all six jobs.
 
 ## What's new
 
@@ -27,4 +27,4 @@ Expected invocation: Codex `$agentready`; Claude Code and Antigravity CLI `/agen
 
 ## Tiếng Việt
 
-Alpha 2 bổ sung Skill tự chứa, đóng gói tái lập, 4 test mới (35 tổng cộng) và hướng dẫn cài đặt song ngữ. CI PR #8 đạt 6/6. Kiểm thử cục bộ nâng version đạt 35/35 trên Node 22. Chưa xác minh cài qua mạng, gọi Skill trong Codex/Claude/AGY thật, update/uninstall, storefront thật và WebMCP trình duyệt thật. Scanner V0.4 vẫn là preview nhánh riêng. Chưa xuất bản npm hoặc tag Alpha 2. Xem [hướng dẫn tiếng Việt](vi/SKILL_INSTALLATION.md).
+Alpha 2 bổ sung Skill tự chứa, đóng gói tái lập, 4 test mới (35 tổng cộng) và hướng dẫn cài đặt song ngữ. CI PR #8 đạt 6/6. Kiểm thử cục bộ nâng version đạt 35/35 trên Node 22. Chưa xác minh cài qua mạng, gọi Skill trong Codex/Claude/AGY thật, update/uninstall, storefront thật và WebMCP trình duyệt thật. Scanner V0.4 vẫn là preview nhánh riêng. Tag Alpha 2 đã phát hành trên GitHub; chưa xuất bản npm. Xem [hướng dẫn tiếng Việt](vi/SKILL_INSTALLATION.md).
