@@ -1,8 +1,10 @@
-# Architecture — AgentReady B2A (v0.3 development)
+[Tiếng Việt](docs/vi/ARCHITECTURE.md) · [Home](README.md)
+
+# Architecture — AgentReady B2A (v0.3 Alpha)
 
 ## Scope
 
-This document describes the current implementation on the v0.3 development branch, not the long-term universal e-commerce vision.
+This document describes the current implementation in the v0.3 alpha, not the long-term universal e-commerce vision.
 
 AgentReady has two distinct roles:
 

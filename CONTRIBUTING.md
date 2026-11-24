@@ -1,3 +1,5 @@
+[Tiếng Việt](docs/vi/CONTRIBUTING.md) · [Home](README.md)
+
 # Contributing to AgentReady B2A
 
 Thanks for helping make e-commerce websites more understandable to compatible AI agents.

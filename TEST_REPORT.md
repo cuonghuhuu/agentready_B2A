@@ -1,3 +1,5 @@
+[Tiếng Việt](docs/vi/TEST_REPORT.md) · [Home](README.md)
+
 # AgentReady B2A verification report (v0.3 catalog adapters — QA edge-case freeze)
 
 - **Baseline commit:** `f8070dfc63738454f345312ec6aaa6b88ecf4946` (`feature/v0.3-commerce-variants`)
@@ -39,7 +41,7 @@
 
 - Commit `fceabdb2573f9139a52fe863f8efaf4fb5cf9939`: Linux Node.js 22.16.0, 29/29 tests passed; demo, verification and packaging passed.
 - GitHub Actions [45350980470](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45350980470): all four Node.js 20/22 Windows/Linux jobs passed tests, demo and verification.
-- Release-candidate follow-up adds two source/configuration collision regressions. New CI evidence is required for that revision; the earlier run is not evidence for changed code.
+- Release candidate `271936ad` adds two source/configuration collision regressions (31 tests total). [CI 45351442675](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351442675), [integrated branch CI 45351577333](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351577333), and [main CI 45351681140](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140) all completed successfully with four jobs each. Main release commit: `512299372736a3282a70ed5839b9e4f185ca0903`.
 
 ## Not run / unverified
 
