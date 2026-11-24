@@ -13,6 +13,8 @@ AgentReady has two distinct roles:
 
 ## Data flow
 
+![AgentReady workflow](docs/assets/workflow-en.jpg)
+
 ```text
 Existing storefront (authoritative business data)
      |

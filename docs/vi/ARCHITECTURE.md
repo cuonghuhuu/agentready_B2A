@@ -6,17 +6,7 @@
 
 Bộ công cụ phát triển (Agent Skill và CLI Node.js) giúp kiểm tra cửa hàng, chuẩn hóa bản xuất công khai cục bộ, sinh tài nguyên máy đọc được và kiểm tra tính nhất quán. Tích hợp runtime tùy chọn cung cấp công cụ WebMCP chỉ đọc trên trình duyệt hỗ trợ.
 
-```mermaid
-flowchart TD
-  A["Storefront: nguồn dữ liệu chính thức"] --> B["File Shopify / WooCommerce / JSON-LD đã duyệt"]
-  B --> C["import: adapters + commerce-model"]
-  C --> D["data/agentready-products.json"]
-  D --> E["generate / verify"]
-  E --> F["public/llms.txt"]
-  E --> G["public/agentready/ catalog + manifest + JSON-LD"]
-  E --> H["WebMCP adapter + runtime"]
-  G --> H
-```
+![Quy trình AgentReady](../assets/workflow-vi.jpg)
 
 Snapshot không tự cập nhật khi giá, sản phẩm hoặc tồn kho thay đổi.
 

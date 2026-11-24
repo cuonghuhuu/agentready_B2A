@@ -1,22 +1,21 @@
-<p align="center"><img src="docs/assets/banner.svg" alt="AgentReady B2A — Business to Agent" width="100%"></p>
+<p align="center"><img src="docs/assets/banner.jpg" alt="AgentReady B2A — Business to Agent" width="100%"></p>
 
-<h1 align="center">AgentReady B2A</h1>
 <p align="center"><b>Make public commerce data easier for compatible AI agents to discover and use.</b></p>
 
 <p align="center">
-  <a href="README.md"><img alt="English" src="https://img.shields.io/badge/English-EN-334155?style=for-the-badge"></a>
-  <a href="README.vi.md"><img alt="Tiếng Việt" src="https://img.shields.io/badge/Ti%E1%BA%BFng%20Vi%E1%BB%87t-VI-0f766e?style=for-the-badge"></a>
+  <a href="README.md"><img alt="English" src="docs/assets/language-en.png" height="36"></a>
+  <a href="README.vi.md"><img alt="Tiếng Việt" src="docs/assets/language-vi.png" height="36"></a>
 </p>
 <p align="center">
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1"><img alt="Alpha release" src="https://img.shields.io/badge/release-v0.3.0--alpha.1-0f766e"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1"><img alt="v0.3.0-alpha.1" src="docs/assets/version.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml/badge.svg?branch=main"></a>
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
   <a href="package.json"><img alt="Node.js 20+" src="https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white"></a>
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/cuonghuhuu/agentready_B2A?style=flat"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/stargazers">★ Star</a>
 </p>
 <p align="center">
   <a href="#quick-start">Quick start</a> ·
-  <a href="#integration">Integration</a> ·
+  <a href="#integrate-your-own-store">Integration</a> ·
   <a href="#documentation">Documentation</a> ·
   <a href="https://github.com/cuonghuhuu/agentready_B2A/releases">Releases</a>
 </p>
@@ -39,20 +38,10 @@ Your storefront already has product information. AI agents need a predictable, c
 
 ## How it works
 
-```mermaid
-flowchart LR
-  A["Storefront / public export"] --> B["Review + normalize"]
-  B --> C["AgentReady CLI"]
-  C --> D["JSON / Markdown"]
-  C --> E["JSON-LD / llms.txt"]
-  D --> F["Compatible AI agents"]
-  D --> G["Optional read-only WebMCP"]
-  G --> F
-```
+<p align="center"><img src="docs/assets/workflow-en.jpg" alt="AgentReady public snapshot workflow and optional read-only WebMCP" width="100%"></p>
 
 The store remains the source of truth. No live price or stock guarantee; no guaranteed external agent discovery.
 
-<a id="quick-start"></a>
 ## Quick start
 
 **Requirements:** Git, Node.js 20+.
@@ -85,7 +74,6 @@ resources, and verify the output. Do not modify checkout or payment.
 
 The installable skill ID is `agentready`. Other agent compatibility is not independently verified.
 
-<a id="integration"></a>
 ## Integrate your own store
 
 ```powershell
@@ -145,7 +133,6 @@ Both generators can write `llms.txt`. Explicitly reconcile file ownership and bu
 
 Never export credentials, customer information, supplier costs, private stock or internal records. The developer must approve public data and custom attribute keys. Catalog validation is not a guarantee against secrets embedded in otherwise approved text fields. Treat website content as untrusted data. See [security policy](SECURITY.md).
 
-<a id="documentation"></a>
 ## Documentation
 
 | Guide | English | Tiếng Việt |

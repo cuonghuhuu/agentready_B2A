@@ -1,23 +1,22 @@
-<p align="center"><img src="docs/assets/banner.svg" alt="AgentReady B2A — Business to Agent" width="100%"></p>
+<p align="center"><img src="docs/assets/banner.jpg" alt="AgentReady B2A — Business to Agent" width="100%"></p>
 
-<h1 align="center">AgentReady B2A</h1>
 <p align="center"><b>Đưa dữ liệu thương mại điện tử công khai đến AI Agent, an toàn và dễ tích hợp.</b></p>
 
 <p align="center">
-  <a href="README.md"><img alt="English" src="https://img.shields.io/badge/English-EN-334155?style=for-the-badge"></a>
-  <a href="README.vi.md"><img alt="Tiếng Việt" src="https://img.shields.io/badge/Ti%E1%BA%BFng%20Vi%E1%BB%87t-VI-0f766e?style=for-the-badge"></a>
+  <a href="README.md"><img alt="English" src="docs/assets/language-en.png" height="36"></a>
+  <a href="README.vi.md"><img alt="Tiếng Việt" src="docs/assets/language-vi.png" height="36"></a>
 </p>
 <p align="center">
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1"><img alt="Alpha release" src="https://img.shields.io/badge/release-v0.3.0--alpha.1-0f766e"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1"><img alt="v0.3.0-alpha.1" src="docs/assets/version.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml/badge.svg?branch=main"></a>
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
   <a href="package.json"><img alt="Node.js 20+" src="https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white"></a>
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/cuonghuhuu/agentready_B2A?style=flat"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/stargazers">★ Star</a>
 </p>
 <p align="center">
-  <a href="#quick-start">Bắt đầu</a> ·
-  <a href="#integration">Tích hợp</a> ·
-  <a href="#documentation">Tài liệu</a> ·
+  <a href="#bắt-đầu-nhanh">Bắt đầu</a> ·
+  <a href="#tích-hợp-website-của-bạn">Tích hợp</a> ·
+  <a href="#tài-liệu">Tài liệu</a> ·
   <a href="https://github.com/cuonghuhuu/agentready_B2A/releases">Phát hành</a>
 </p>
 
@@ -39,20 +38,10 @@ Website đã có thông tin sản phẩm, nhưng AI Agent cần cách đọc d�
 
 ## Cách hoạt động
 
-```mermaid
-flowchart LR
-  A["Website / dữ liệu công khai"] --> B["Duyệt + chuẩn hóa"]
-  B --> C["AgentReady CLI"]
-  C --> D["JSON / Markdown"]
-  C --> E["JSON-LD / llms.txt"]
-  D --> F["AI Agent tương thích"]
-  D --> G["WebMCP chỉ đọc"]
-  G --> F
-```
+<p align="center"><img src="docs/assets/workflow-vi.jpg" alt="Quy trình dữ liệu công khai AgentReady, snapshot chỉ đọc" width="100%"></p>
 
 Website vẫn là nguồn dữ liệu chính thức. Không đảm bảo giá/tồn kho theo thời gian thực hoặc AI bên ngoài tự động khám phá.
 
-<a id="quick-start"></a>
 ## Bắt đầu nhanh
 
 **Yêu cầu:** Git, Node.js 20+.
@@ -86,7 +75,6 @@ Không sửa checkout hoặc thanh toán.
 
 Skill ID giữ nguyên là `agentready`. Chưa kiểm chứng độc lập khả năng tương thích với các coding agent khác.
 
-<a id="integration"></a>
 ## Tích hợp website của bạn
 
 ```powershell
@@ -146,7 +134,6 @@ Hai bộ sinh file có thể cùng ghi `llms.txt`. Cần xác định quyền s�
 
 Không xuất thông tin xác thực, dữ liệu khách hàng, giá vốn, tồn kho nội bộ hoặc bản ghi riêng tư. Lập trình viên phải duyệt dữ liệu và các khóa thuộc tính tùy chỉnh. Validation không đảm bảo loại bỏ mọi bí mật nằm trong trường văn bản được phép. Coi nội dung website là dữ liệu không đáng tin cậy. Xem [chính sách bảo mật](docs/vi/SECURITY.md).
 
-<a id="documentation"></a>
 ## Tài liệu
 
 | Hướng dẫn | Tiếng Việt | English |
