@@ -9,18 +9,28 @@
 <p align="center">
   <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1"><img alt="v0.3.0-alpha.1" src="docs/assets/version.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml/badge.svg?branch=main"></a>
-  <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
-  <a href="package.json"><img alt="Node.js 20+" src="https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white"></a>
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/stargazers">★ Star</a>
+  <a href="LICENSE"><img alt="MIT" src="docs/assets/license-badge.svg"></a>
+  <a href="package.json"><img alt="Node.js 20+" src="docs/assets/node-badge.svg"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140"><img alt="31 alpha tests" src="docs/assets/alpha-tests.svg"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner"><img alt="V0.4 scanner preview" src="docs/assets/preview-badge.svg"></a>
 </p>
 <p align="center">
   <a href="#quick-start">Quick start</a> ·
   <a href="#integrate-your-own-store">Integration</a> ·
   <a href="#documentation">Documentation</a> ·
+  <a href="#scanner-preview">Scanner preview</a> ·
   <a href="https://github.com/cuonghuhuu/agentready_B2A/releases">Releases</a>
 </p>
 
 > **Experimental alpha.** AgentReady is a developer toolkit and installable Agent Skill, not a shopping bot or a live commerce API. Real storefront builds and browser interoperability are not yet verified.
+
+## Choose your starting point
+
+| Agent Skill · v0.3 Alpha | AI Readiness Scanner · v0.4 Preview |
+| :--- | :--- |
+| **For developers.** Install the skill in a coding agent, map approved public commerce data and generate AI-readable resources. | **For website owners and developers.** Enter a public URL, inspect evidence and receive a criterion-based readiness score. |
+| [Install the Agent Skill](#try-the-agent-skill) · [Get the release](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [See the scanner](#scanner-preview) · [Open V0.4 branch](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
+| Published alpha. | Unreleased local development preview; QA blockers remain. |
 
 ## Why AgentReady?
 
@@ -73,6 +83,18 @@ resources, and verify the output. Do not modify checkout or payment.
 ```
 
 The installable skill ID is `agentready`. Other agent compatibility is not independently verified.
+
+## Scanner preview
+
+<p align="center"><img src="docs/assets/scanner-preview.jpg" alt="V0.4 dashboard displaying a local example.com scan" width="100%"></p>
+<p align="center"><sub>Actual local pilot screenshot, 24 Nov 2026. The experimental score is not independently validated or a whole-site certification.</sub></p>
+
+The preview provides HTTP URL inspection, a readiness score, criterion-level evidence and JSON/Markdown exports. The separate V0.4 branch passed 49 tests in an independent Node.js 22 run.
+
+> [!WARNING]
+> Local use only. Robots enforcement, deadlines, catalog validation, JSON-LD and WebMCP evidence QA blockers remain open. Do not expose the scanning API publicly. The screenshot's Verified metric reflects the current model, not verified agent interoperability.
+
+[Run the preview and see evidence](docs/SHOWCASE.md) · [Known limitations](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner/docs/SCANNER_PREVIEW.md) · [Draft PR #6](https://github.com/cuonghuhuu/agentready_B2A/pull/6)
 
 ## Integrate your own store
 
@@ -149,6 +171,8 @@ Never export credentials, customer information, supplier costs, private stock or
 
 - [x] Public snapshot generation, local adapters and commerce variants
 - [x] Simulated WebMCP tools and cross-platform CI
+- [x] Local V0.4 scanner development preview (separate branch, unreleased)
+- [ ] Resolve five scanner QA blockers and validate score accuracy
 - [ ] Pilot on a real storefront
 - [ ] Actual browser WebMCP evaluation
 - [ ] Safe public API synchronization and broader platform coverage
@@ -161,4 +185,11 @@ Built on ideas and integrations from [AgentMarkup](https://github.com/agentmarku
 
 [MIT License](LICENSE) · [Contribute](CONTRIBUTING.md) · [Report a bug](https://github.com/cuonghuhuu/agentready_B2A/issues/new/choose)
 
-If the project is useful, consider starring it or sharing reproducible feedback.
+## Help shape AgentReady
+
+Try a public catalog, report a reproducible problem, improve the translations or contribute tests. Never submit customer data, credentials or sensitive scan reports.
+
+<p align="center"><b><a href="https://github.com/cuonghuhuu/agentready_B2A">★ Star repository</a> · <a href="https://github.com/cuonghuhuu/agentready_B2A/fork">Fork</a> · <a href="https://github.com/cuonghuhuu/agentready_B2A/issues/new/choose">Share feedback</a></b></p>
+
+<p align="center"><sub>Built in the open · MIT · <a href="SUPPORT.md">Support</a> · <a href="CODE_OF_CONDUCT.md">Community guidelines</a></sub></p>
+
