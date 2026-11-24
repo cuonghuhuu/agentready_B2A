@@ -1,6 +1,6 @@
 {
   "name": "agentready-b2a",
-  "version": "0.2.0",
+  "version": "0.3.0-alpha.1",
   "type": "module",
   "description": "Reusable open-source toolkit and Agent Skill for public, read-only commerce catalogs and WebMCP integrations.",
   "repository": {
@@ -8,13 +8,15 @@
     "url": "https://github.com/cuonghuhuu/agentready_B2A.git"
   },
   "exports": {
+    "./adapters": "./src/adapters.mjs",
+    "./commerce-model": "./src/commerce-model.mjs",
     "./integrations/agentmarkup-next": "./src/integrations/agentmarkup-next.mjs"
   },
   "bin": {
     "agentready": "./bin/agentready.mjs"
   },
   "scripts": {
-    "test": "node --test tests/agentmarkup.test.mjs tests/agentready.test.mjs tests/commerce-variants.test.mjs",
+    "test": "node --test tests/adapters.test.mjs tests/agentmarkup.test.mjs tests/agentready.test.mjs tests/commerce-variants.test.mjs",
     "demo": "node bin/agentready.mjs generate --project examples/ecommerce-demo --force && node bin/agentready.mjs verify --project examples/ecommerce-demo",
     "verify:demo": "node bin/agentready.mjs verify --project examples/ecommerce-demo",
     "serve:demo": "node bin/serve-demo.mjs"

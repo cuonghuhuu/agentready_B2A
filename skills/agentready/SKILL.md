@@ -16,15 +16,27 @@ You are an implementation agent. Make useful changes in the target project, not 
 
    `node <skill>/bin/agentready.mjs init --project <target> --site-name "Store" --site-url https://store.example`
 
-3. Connect the target's actual public data to `data/agentready-products.json` or a safe export. Set `published:true` only for records the site already publishes. Exclude customer data, supplier costs, secrets, private inventory, and internal notes. Do not create an unauthenticated endpoint or bypass existing authorization.
+3. Connect the target's actual public data to `data/agentready-products.json` or a safe export. If the storefront already exports a local public Shopify `/products.json`, WooCommerce Store API JSON, or Schema.org JSON-LD catalog inside the project, normalize it through the allowlisted importer (which validates variants through `src/commerce-model.mjs`):
+
+   `node <skill>/bin/agentready.mjs import --project <target> --source <relative-export.json> [--format auto|shopify|woocommerce|jsonld] [--currency USD] [--trusted-public-source] [--allow-attributes color,size]`
+
+   Use `--force` only after the developer approves replacing the existing catalog. Use `--trusted-public-source` or custom attribute keys only after explicit review of provenance and public visibility.
+
+   **Public-Source Trust Contract:**
+   - **Shopify:** Requires reliable parent publication evidence (`published_at` past ISO timestamp or `published: true`, active status) AND explicit per-variant publication evidence (`variant.published: true` or past `variant.published_at`), unless the developer explicitly attests a verified public storefront export via `--trusted-public-source`. Availability alone never establishes publication.
+   - **WooCommerce Store API:** Accepts only publicly published, non-hidden records with explicit `is_in_stock` / `is_on_backorder` availability and a valid integer `currency_minor_unit`.
+   - **Schema.org JSON-LD:** Intended only for JSON-LD extracted from public pages; explicitly private, hidden, draft, or `published: false` products and offers are rejected.
+   - **Attributes:** Only developer-approved public merchandising attributes (`DEFAULT_ALLOWED_ATTRIBUTES` or `--allow-attributes`) are exported; arbitrary or nested attributes are dropped.
+
+   Set `published:true` only for records the site already publishes. Never fabricate missing publication evidence or availability. Exclude customer data, supplier costs, secrets, private inventory, and internal notes. Do not create an unauthenticated endpoint or bypass existing authorization.
    If a product has optional `variants`, export only variant records explicitly marked `published:true`. Never infer publication from the parent; keep public `id`, `sku`, `label`, `price`, `currency`, `availability`, same-origin `url`, and approved `attributes` only. See `docs/COMMERCE_VARIANTS.md` in the AgentReady source; current support is snapshot-based.
 4. Generate outputs:
 
    `node <skill>/bin/agentready.mjs generate --project <target>`
 
-   Generation refuses existing output. Use `--force` only after reviewing the exact AgentReady-owned files that will be replaced.
-5. For Next.js, the optional `@agentmarkup/next` adapter helper is `src/integrations/agentmarkup-next.mjs`. Use it with AgentMarkup's `withAgentmarkup()` and let AgentMarkup own `llms.txt`. Follow current upstream guidance for dynamic SSR routes; the helper does not add product JSON-LD to those pages.
-6. Optionally load `/agentready/webmcp-products.js` as a module after generating the catalog. It exposes only read-only product search and lookup from the public snapshot. WebMCP is experimental and must be checked in an actual compatible browser. For route-wide inventory, use the WebMCPify skill and its approval manifest.
+   Generation refuses existing output and symlink escapes. Use `--force` only after reviewing the exact AgentReady-owned files that will be replaced.
+5. For Next.js, the optional `@agentmarkup/next` adapter helper is `src/integrations/agentmarkup-next.mjs`. Use it with AgentMarkup's `withAgentmarkup()`. AgentReady always emits `public/llms.txt`; explicitly reconcile ownership and build order before using both generators. Follow current upstream guidance for dynamic SSR routes; the helper does not add product JSON-LD to those pages.
+6. Optionally load `/agentready/webmcp-products.js` as a module after generating the catalog. It exposes only read-only product search (with variant-isolated matching, currency-safe `maxPrice` filtering, and compact `matchingOffers` summaries reflecting matched variant price/availability) and full-detail product lookup from the public snapshot. WebMCP is experimental and must be checked in an actual compatible browser. For route-wide inventory, use the WebMCPify skill and its approval manifest.
 7. Verify the generated files:
 
    `node <skill>/bin/agentready.mjs verify --project <target>`

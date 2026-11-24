@@ -77,12 +77,14 @@ function validProduct(product, index, origin) {
   if (product.image !== undefined && product.image !== null && product.image !== '') {
     image = validateUrl(product.image, origin, `product[${index}].image`);
   }
-  const attributes = {};
+  const attributes = Object.create(null);
   if (product.attributes !== undefined) {
     assert(product.attributes && typeof product.attributes === 'object' && !Array.isArray(product.attributes), `product[${index}].attributes must be object`);
-    for (const [key, val] of Object.entries(product.attributes)) {
-      assert(/^[a-zA-Z0-9_-]{1,50}$/.test(key), `product[${index}] invalid attribute key`);
-      assert(typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean', `product[${index}] invalid attribute value`);
+    const entries = Object.entries(product.attributes);
+    assert(entries.length <= 30, `product[${index}] has too many attributes`);
+    for (const [key, val] of entries) {
+      assert(/^[a-zA-Z0-9_-]{1,50}$/.test(key) && !['__proto__', 'constructor', 'prototype'].includes(key), `product[${index}] invalid attribute key`);
+      assert((typeof val === 'string' || typeof val === 'boolean' || (typeof val === 'number' && Number.isFinite(val))), `product[${index}] invalid attribute value`);
       attributes[key] = String(val).slice(0, 200);
     }
   }
@@ -90,8 +92,30 @@ function validProduct(product, index, origin) {
   return {id, name, url, description, brand, category, sku, price, currency, availability, ...(image ? {image} : {}), attributes, ...(variants !== undefined ? {variants} : {})};
 }
 
-async function writeNewFile(file, data, {force = false} = {}) {
+async function assertSafeOutputFile(root, file) {
+  const realRoot = await fs.realpath(root);
+  const rel = path.relative(path.resolve(root), path.resolve(file));
+  assert(rel && !rel.startsWith('..') && !path.isAbsolute(rel), 'Output path must remain inside project');
+  const segments = rel.split(path.sep);
+  let cursor = path.resolve(root);
+  for (let i = 0; i < segments.length; i++) {
+    cursor = path.join(cursor, segments[i]);
+    let st;
+    try { st = await fs.lstat(cursor); }
+    catch (e) { if (e.code === 'ENOENT') break; throw e; }
+    assert(!st.isSymbolicLink(), `Refusing to write through symlink: ${segments.slice(0, i + 1).join('/')}`);
+  }
+  return realRoot;
+}
+
+async function writeNewFile(file, data, {force = false, root = null} = {}) {
+  if (root) await assertSafeOutputFile(root, file);
   await fs.mkdir(path.dirname(file), {recursive:true});
+  if (root) {
+    const realRoot = await fs.realpath(root);
+    const realDir = await fs.realpath(path.dirname(file));
+    assert(realDir === realRoot || realDir.startsWith(realRoot + path.sep), 'Output directory must remain inside project');
+  }
   if (!force) {
     try { await fs.access(file); throw new Error(`Refusing to overwrite ${file}. Use --force to replace generated files.`); }
     catch (e) { if (e.code !== 'ENOENT') throw e; }
@@ -126,8 +150,8 @@ export async function init(project,{siteName, siteUrl, force=false}={}) {
   };
   const configFile=path.join(root,'agentready.config.json');
   const productsFile=path.join(root,'data','agentready-products.json');
-  if (force || !await exists(configFile)) await writeNewFile(configFile, JSON.stringify(config,null,2)+'\n',{force});
-  if (force || !await exists(productsFile)) await writeNewFile(productsFile, '[]\n',{force});
+  if (force || !await exists(configFile)) await writeNewFile(configFile, JSON.stringify(config,null,2)+'\n',{force,root});
+  if (force || !await exists(productsFile)) await writeNewFile(productsFile, '[]\n',{force,root});
   return {configFile,productsFile,framework:info.framework};
 }
 
@@ -149,7 +173,7 @@ async function loadSite(root) {
   const products=published.map((p,i)=>validProduct(p,i,origin)).sort((a,b)=>a.id.localeCompare(b.id));
   const ids=new Set();
   for (const product of products) { assert(!ids.has(product.id), `Duplicate product id: ${product.id}`); ids.add(product.id); }
-  return {origin,siteName,siteDescription,sourcePath,products,webmcp:config.webmcp===true};
+  return {origin,siteName,siteDescription,sourcePath:realSource,products,webmcp:config.webmcp===true};
 }
 function makeJsonLd(site) {
   return {
@@ -223,11 +247,22 @@ export async function generate(project,{force=false}={}) {
     'agentready/webmcpify-runtime.js':await fs.readFile(path.join(ROOT_DIR,'src','webmcpify-runtime.js'),'utf8'),
     'agentready/manifest.json':JSON.stringify(manifest,null,2)+'\n'
   };
-  // Preflight collisions so a single existing file cannot cause partial writes.
-  if (!force) for (const file of OUTPUT_FILES) {
-    assert(!await exists(path.join(pub,file)), `Output already exists: public/${file}. Use --force for regeneration.`);
+  // Preflight collisions and symlink escapes so a single bad path cannot cause partial writes.
+  for (const file of OUTPUT_FILES) {
+    const outFile = path.join(pub, file);
+    await assertSafeOutputFile(root, outFile);
+    // The public source must never be replaced by a generated resource, even with --force.
+    if (await exists(outFile)) {
+      const resolved = await fs.realpath(outFile);
+      const sourceStat = await fs.stat(site.sourcePath);
+      const outputStat = await fs.stat(outFile);
+      assert(resolved !== site.sourcePath && !(sourceStat.dev === outputStat.dev && sourceStat.ino === outputStat.ino), 'Source and generated output must not resolve to the same file');
+    }
+    if (!force) {
+      assert(!await exists(outFile), `Output already exists: public/${file}. Use --force for regeneration.`);
+    }
   }
-  for (const [file,body] of Object.entries(generated)) await writeNewFile(path.join(pub,file),body,{force});
+  for (const [file,body] of Object.entries(generated)) await writeNewFile(path.join(pub,file),body,{force,root});
   return {root,output:OUTPUT_FILES.map(f=>`public/${f}`),productCount:site.products.length,webmcp:site.webmcp,warnings:site.products.length===0?['No published products: add real PUBLIC items and re-run generate --force.']:[]};
 }
 export async function verify(project) {
