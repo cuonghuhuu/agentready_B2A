@@ -15,6 +15,7 @@
   <a href="https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner"><img alt="V0.4 scanner preview" src="docs/assets/preview-badge.svg"></a>
 </p>
 <p align="center">
+  <a href="#install-as-a-universal-agent-skill">Install Skill</a> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="#integrate-your-own-store">Integration</a> ·
   <a href="#documentation">Documentation</a> ·
@@ -22,15 +23,27 @@
   <a href="https://github.com/cuonghuhuu/agentready_B2A/releases">Releases</a>
 </p>
 
-> **Experimental alpha.** AgentReady is a developer toolkit and installable Agent Skill, not a shopping bot or a live commerce API. Real storefront builds and browser interoperability are not yet verified.
+> **Experimental alpha.** AgentReady is a developer toolkit and portable Agent Skill, not a shopping bot or a live commerce API. Real storefront builds, live third-party agent execution, and browser interoperability are not yet independently verified.
+
+## Install as a Universal Agent Skill
+
+Install the self-contained `agentready` skill on **Windows, Linux, or macOS** (Node.js 20+, zero external runtime dependencies, no mandatory MCP server) using the [Vercel Skills CLI](https://github.com/vercel-labs/skills):
+
+```bash
+npx skills add cuonghuhuu/agentready_B2A --skill agentready -g
+```
+
+- **Activate:** `$agentready` in OpenAI Codex CLI, `/agentready` in Anthropic Claude Code, or `/agentready` in Google Antigravity CLI (`agy`).
+- **Update / Remove:** `npx skills update` · `npx skills remove agentready -g`.
+- **Full guide & compatibility matrix:** [Skill Installation & Compatibility](docs/SKILL_INSTALLATION.md) (distinguishes official spec/simulated tests from live agent execution).
 
 ## Choose your starting point
 
 | Agent Skill · v0.3 Alpha | AI Readiness Scanner · v0.4 Preview |
 | :--- | :--- |
-| **For developers.** Install the skill in a coding agent, map approved public commerce data and generate AI-readable resources. | **For website owners and developers.** Enter a public URL, inspect evidence and receive a criterion-based readiness score. |
-| [Install the Agent Skill](#try-the-agent-skill) · [Get the release](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [See the scanner](#scanner-preview) · [Open V0.4 branch](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
-| Published alpha. | Unreleased local development preview; QA blockers remain. |
+| **For developers.** Install the self-contained skill in a compatible coding agent, map approved public commerce data and generate AI-readable resources. | **For website owners and developers.** Enter a public URL, inspect evidence and receive a criterion-based readiness score. |
+| [Install the Agent Skill](#install-as-a-universal-agent-skill) · [Get the release](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [See the scanner](#scanner-preview) · [Open V0.4 branch](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
+| Published alpha; portable packaging is a development update, not part of the existing release tag. | Unreleased local development preview; QA blockers remain. |
 
 ## Why AgentReady?
 
@@ -38,6 +51,7 @@ Your storefront already has product information. AI agents need a predictable, c
 
 | Capability | Availability |
 | --- | --- |
+| Portable self-contained Agent Skill (`skills/agentready/`) | Packaged from canonical sources; CI drift-checked (`npm run skill:check`) |
 | CLI: inspect, init, import, generate, verify | Implemented |
 | Shopify, WooCommerce Store API, Schema.org JSON-LD | Local JSON imports only |
 | Products, variants, price and availability | Snapshot; canonical variant validation |
@@ -59,6 +73,7 @@ The store remains the source of truth. No live price or stock guarantee; no guar
 ```bash
 git clone https://github.com/cuonghuhuu/agentready_B2A.git
 cd agentready_B2A
+npm run skill:check
 npm test
 npm run demo
 npm run serve:demo
@@ -68,21 +83,27 @@ Open [http://127.0.0.1:4173](http://127.0.0.1:4173). The demo uses fictional pro
 
 ### Try the Agent Skill
 
-From the cloned repository in Windows PowerShell:
+Recommended universal install (Windows, Linux, macOS):
+
+```bash
+npx skills add cuonghuhuu/agentready_B2A --skill agentready -g
+```
+
+Offline Windows PowerShell fallback from a cloned repository (Codex):
 
 ```powershell
 .\install-codex.ps1
 ```
 
-Restart Codex, open your storefront repository and ask:
+Open your storefront repository in your coding agent and ask (using `$agentready` in Codex CLI or `/agentready` in Claude Code / Antigravity CLI):
 
 ```text
-Use $agentready to inspect this e-commerce application.
+Use agentready to inspect this e-commerce application.
 Connect only approved public product data, generate AI-readable
 resources, and verify the output. Do not modify checkout or payment.
 ```
 
-The installable skill ID is `agentready`. Other agent compatibility is not independently verified.
+The installable skill ID is `agentready`. See [Skill Installation & Compatibility](docs/SKILL_INSTALLATION.md) for per-agent discovery paths, update/uninstall commands, and exact verification boundaries.
 
 ## Scanner preview
 
@@ -151,7 +172,7 @@ Both generators can write `llms.txt`. Explicitly reconcile file ownership and bu
 
 ## Verification and boundaries
 
-[Alpha CI evidence](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140) · 31 automated tests in the release candidate · Node.js 20/22 on Linux and Windows.
+[Alpha CI evidence](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140) · 31 preserved alpha tests + portable skill distribution tests · CI configured for Node.js 20/22 on Linux, Windows, and macOS.
 
 Never export credentials, customer information, supplier costs, private stock or internal records. The developer must approve public data and custom attribute keys. Catalog validation is not a guarantee against secrets embedded in otherwise approved text fields. Treat website content as untrusted data. See [security policy](SECURITY.md).
 
@@ -159,6 +180,7 @@ Never export credentials, customer information, supplier costs, private stock or
 
 | Guide | English | Tiếng Việt |
 | --- | --- | --- |
+| Skill installation & compatibility | [EN](docs/SKILL_INSTALLATION.md) | [VI](docs/vi/SKILL_INSTALLATION.md) |
 | Architecture | [EN](ARCHITECTURE.md) | [VI](docs/vi/ARCHITECTURE.md) |
 | Commerce variants | [EN](docs/COMMERCE_VARIANTS.md) | [VI](docs/vi/COMMERCE_VARIANTS.md) |
 | Verification | [EN](TEST_REPORT.md) | [VI](docs/vi/TEST_REPORT.md) |
@@ -171,6 +193,8 @@ Never export credentials, customer information, supplier costs, private stock or
 
 - [x] Public snapshot generation, local adapters and commerce variants
 - [x] Simulated WebMCP tools and cross-platform CI
+- [x] Self-contained skill packaging and isolated runtime tests
+- [ ] Live Skills CLI install and client activation checks
 - [x] Local V0.4 scanner development preview (separate branch, unreleased)
 - [ ] Resolve five scanner QA blockers and validate score accuracy
 - [ ] Pilot on a real storefront
@@ -192,4 +216,3 @@ Try a public catalog, report a reproducible problem, improve the translations or
 <p align="center"><b><a href="https://github.com/cuonghuhuu/agentready_B2A">★ Star repository</a> · <a href="https://github.com/cuonghuhuu/agentready_B2A/fork">Fork</a> · <a href="https://github.com/cuonghuhuu/agentready_B2A/issues/new/choose">Share feedback</a></b></p>
 
 <p align="center"><sub>Built in the open · MIT · <a href="SUPPORT.md">Support</a> · <a href="CODE_OF_CONDUCT.md">Community guidelines</a></sub></p>
-

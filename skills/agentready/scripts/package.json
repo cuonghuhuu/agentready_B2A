@@ -1,0 +1,11 @@
+{
+  "name": "agentready-skill-runtime",
+  "version": "0.3.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "description": "Self-contained ESM runtime for the portable AgentReady B2A Agent Skill.",
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
