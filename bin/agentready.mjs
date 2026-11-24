@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import path from 'node:path';
 import {inspect,init,generate,verify} from '../src/core.mjs';
+import {importCatalog} from '../src/adapters.mjs';
 
 const args=process.argv.slice(2);
 const command=args[0] || 'help';
@@ -12,11 +13,18 @@ function flag(name, fallback) {
 }
 const project=path.resolve(flag('--project', '.'));
 const force=args.includes('--force');
+const trustedPublicSource=args.includes('--trusted-public-source');
 function output(o) { console.log(JSON.stringify(o,null,2)); }
 try {
   switch (command) {
     case 'inspect': output(await inspect(project)); break;
     case 'init': output(await init(project,{siteName:flag('--site-name'),siteUrl:flag('--site-url'),force})); break;
+    case 'import': {
+      const rawAllowed=flag('--allow-attributes');
+      const allowedAttributes=rawAllowed!==undefined ? rawAllowed.split(',').map(s=>s.trim()).filter(Boolean) : undefined;
+      output(await importCatalog(project,{source:flag('--source'),format:flag('--format','auto'),currency:flag('--currency'),force,trustedPublicSource,allowedAttributes}));
+      break;
+    }
     case 'generate': output(await generate(project,{force})); break;
     case 'verify': {
       const result=await verify(project);
@@ -29,6 +37,7 @@ try {
 
   node bin/agentready.mjs inspect --project <website>
   node bin/agentready.mjs init --project <website> [--site-name "Name"] [--site-url https://example.com]
+  node bin/agentready.mjs import --project <website> --source <file> [--format auto|shopify|woocommerce|jsonld] [--currency USD] [--trusted-public-source] [--allow-attributes color,size] [--force]
   node bin/agentready.mjs generate --project <website> [--force]
   node bin/agentready.mjs verify --project <website>
 

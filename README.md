@@ -11,28 +11,42 @@ AgentReady B2A is an **experimental, open-source toolkit and installable Agent S
 
 **B2A = Business-to-Agent.** The goal is to make a commerce site intelligible to AI agents without giving them unauthorized access to private data or transactions.
 
-> **Current scope (v0.2.0):** snapshot-based public catalogs, not live stock, database synchronization, universal platform support, checkout, or agent-driven purchases. The example store is fictional.
+> **Current scope (v0.3 development branch):** snapshot-based public catalogs with optional explicitly-published product variants and local file import adapters (Shopify, WooCommerce Store API, Schema.org JSON-LD). Not live stock, database synchronization, live platform API integration, checkout, or agent-driven purchases. The example fixtures are fictional.
 
 ## What works today
 
 | Capability | Status |
 | --- | --- |
-| CLI: inspect, init, generate, verify | Implemented |
-| Public catalog (JSON + Markdown) and manifest | Implemented |
+| CLI: inspect, init, import, generate, verify | Implemented |
+| Local public catalog import adapters (Shopify `/products.json`, WooCommerce Store API JSON, Schema.org JSON-LD) | Implemented; local file exports only, strict attribute allowlist & trust contract |
+| Public catalog (JSON + Markdown), optional validated variants (`src/commerce-model.mjs`), and manifest | Implemented |
 | `llms.txt` and standalone Schema.org JSON-LD output | Implemented; optional discovery metadata |
-| Read-only product search and lookup via WebMCP | Implemented; simulated tests passed |
+| Read-only product search (variant-isolated, currency-safe `maxPrice`, matched-variant summaries & compact `matchingOffers`) and detail lookup via WebMCP | Implemented; simulated tests passed |
 | WebMCPify runtime | Bundled under MIT, with preserved notice |
 | AgentMarkup Next.js configuration helper | Optional integration; **real storefront build unverified** |
 | Google Chrome Labs WebMCP smoke-eval fixture | Provided; **browser eval unrun** |
-| Automatic support for Shopify, WooCommerce, marketplaces, or live databases | **Not yet implemented** |
+| Live database sync, live Shopify/WooCommerce API polling, or transactional checkout | **Not implemented** |
 
 WebMCP is experimental and not available in every browser. `llms.txt` is optional metadata; publishing it does **not** guarantee discovery by external agents.
 
-## Development preview: commerce variants (v0.3 slice)
+## Development preview: commerce variants & public catalog adapters (v0.3)
 
-The v0.3 feature branch adds **optional, explicitly published** product variants. Catalog JSON/Markdown and standalone JSON-LD can now represent variant-specific public prices and availability. Read-only WebMCP search provides compact price ranges; detail lookup returns public variants. Existing flat product snapshots remain supported.
+The v0.3 feature branch adds:
 
-See [Commerce variants](docs/COMMERCE_VARIANTS.md) for the input contract, synthetic fashion/electronics fixtures, safeguards, and tests. **This does not yet imply working storefront adapters or live stock synchronization.**
+- **Canonical variant normalization (`src/commerce-model.mjs`):** optional, explicitly published (`published: true`) product variants with canonical `label`, `sku`, `price`, `currency`, `availability`, same-origin `url`, and allowlisted `attributes` (up to 100 variants per product and 30 attributes per variant). Existing flat product snapshots remain supported.
+- **Local public catalog import adapters (`src/adapters.mjs`, `agentready import`):** converts developer-exported local Shopify `/products.json`, WooCommerce Store API JSON, or Schema.org JSON-LD files into allowlisted `data/agentready-products.json` records while reusing `src/commerce-model.mjs`.
+- **Variant-isolated WebMCP search (`src/webmcp-products.js`):** separates product-level fields from variant-specific attributes so aggregated parent options never contaminate sibling variants, evaluates query terms, `maxPrice`, `currency`, and `availability` on the same matching variant, refuses raw cross-currency `maxPrice` comparisons without an explicit `currency`, and reports the actual matched variants' price/availability and compact `matchingOffers` in search while reserving full `variants` for `agentready_get_product`.
+
+### Public-source trust contract (importers)
+
+Each local importer enforces an explicit trust contract before writing `data/agentready-products.json`:
+
+- **Shopify (`--format shopify`):** Requires reliable parent publication evidence (`published_at` valid non-future ISO timestamp or `published: true`, with active/absent status) **and** explicit per-variant publication evidence (`variant.published: true` or valid non-future `variant.published_at`). Availability alone does not establish publication. For verified public storefront exports (such as Shopify's public `/products.json`), the developer may pass `--trusted-public-source` (`trustedPublicSource: true`), which still rejects any explicitly private/unpublished record or variant.
+- **WooCommerce Store API (`--format woocommerce`):** Accepts only publicly published, non-hidden records with explicit `is_in_stock` / `is_on_backorder` availability and a valid integer `currency_minor_unit` (`0..6`).
+- **Schema.org JSON-LD (`--format jsonld`):** Intended solely for JSON-LD extracted from already-public pages. Explicitly private, hidden, draft, archived, or `published: false` products and offers are rejected, as are offers with missing/unknown availability or mixed currencies on a single product.
+- **Public attribute allowlist:** Only developer-approved merchandising attributes (`DEFAULT_ALLOWED_ATTRIBUTES`, or an explicit `--allow-attributes` list) are imported; unapproved keys (such as `supplier_cost` or `customer_email`) and nested object values are dropped with a warning.
+
+See [Commerce variants](docs/COMMERCE_VARIANTS.md) for the input contract, synthetic fashion/electronics fixtures, safeguards, and tests. **Local file adapters do not imply live storefront API integration or live stock synchronization.**
 
 ## Quick start
 
@@ -68,21 +82,22 @@ The installable skill identifier remains **`agentready`**. Review the proposed c
 
 ## Use the CLI with your own store
 
-AgentReady currently requires a JSON export of the store's **already public** product data. It does not connect directly to a production database.
+AgentReady currently requires a local JSON export of the store's **already public** product data. It does not connect directly to a production database.
 
 ```powershell
 node .\bin\agentready.mjs inspect --project "D:\projects\my-shop"
 node .\bin\agentready.mjs init --project "D:\projects\my-shop" --site-name "My Shop" --site-url "https://shop.example.com"
 ```
 
-Connect real approved records to `data/agentready-products.json` and mark public items with `published: true`. Then run:
+Either connect real approved records directly to `data/agentready-products.json` (marking public items and variants with `published: true`), or normalize an existing local public Shopify/WooCommerce/JSON-LD export inside the project:
 
 ```powershell
+node .\bin\agentready.mjs import --project "D:\projects\my-shop" --source "data/shopify-products.json" --format auto --currency USD --trusted-public-source --force
 node .\bin\agentready.mjs generate --project "D:\projects\my-shop"
 node .\bin\agentready.mjs verify --project "D:\projects\my-shop"
 ```
 
-Generation refuses to overwrite existing outputs by default; use `--force` only after reviewing the files it owns. Verify actual availability and price again at the store before any purchase.
+Generation and import refuse to overwrite existing outputs by default and block path traversal, source/output collisions, and symlink escapes; use `--force` only after reviewing the files owned by AgentReady. Verify actual availability and price again at the store before any purchase.
 
 ### Optional AgentMarkup integration (Next.js)
 
@@ -112,8 +127,8 @@ Let **AgentMarkup own `llms.txt`** in this setup to avoid generator collisions. 
 
 After generating and deploying the public feed and runtime files, load `/agentready/webmcp-products.js` as an ES module in a compatible site. In supported browsers it registers:
 
-- `agentready_search_products` — search up to 10 public snapshot results.
-- `agentready_get_product` — retrieve one published product by ID.
+- `agentready_search_products` — search up to 10 public snapshot results with variant-isolated query/price/currency/availability matching, matched-variant price/availability summaries, and compact `matchingOffers`.
+- `agentready_get_product` — retrieve one published product by ID, including full public `variants` when present.
 
 Tools are **read-only** and do not support accounts, cart mutations, checkout, or payments. See [testing evidence](TEST_REPORT.md). To run a real compatible-browser smoke evaluation, follow [the upstream instructions](skills/agentready/references/UPSTREAM.md) and use `examples/ecommerce-demo/webmcp-evals.json`.
 
@@ -140,7 +155,7 @@ GitHub Actions tests Node.js **20 and 22** on **Linux and Windows**. CI passing 
 
 ## Roadmap
 
-**Next:** generalized commerce entities, safe API adapters, tested fashion/electronics fixtures, and live browser WebMCP evaluations. **Later:** platform-specific integrations and separately authorized transactional interfaces. These are plans, **not current capabilities**.
+**Next:** live browser WebMCP evaluations, real storefront build verification, and safe public API sync patterns. **Later:** platform-specific integrations and separately authorized transactional interfaces. These are plans, **not current capabilities**.
 
 ## License and attribution
 
