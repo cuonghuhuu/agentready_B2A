@@ -9,18 +9,28 @@
 <p align="center">
   <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1"><img alt="v0.3.0-alpha.1" src="docs/assets/version.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml/badge.svg?branch=main"></a>
-  <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
-  <a href="package.json"><img alt="Node.js 20+" src="https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white"></a>
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/stargazers">★ Star</a>
+  <a href="LICENSE"><img alt="MIT" src="docs/assets/license-badge.svg"></a>
+  <a href="package.json"><img alt="Node.js 20+" src="docs/assets/node-badge.svg"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140"><img alt="31 alpha tests" src="docs/assets/alpha-tests.svg"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner"><img alt="V0.4 scanner preview" src="docs/assets/preview-badge.svg"></a>
 </p>
 <p align="center">
   <a href="#bắt-đầu-nhanh">Bắt đầu</a> ·
   <a href="#tích-hợp-website-của-bạn">Tích hợp</a> ·
   <a href="#tài-liệu">Tài liệu</a> ·
+  <a href="#scanner-thử-nghiệm">Scanner thử nghiệm</a> ·
   <a href="https://github.com/cuonghuhuu/agentready_B2A/releases">Phát hành</a>
 </p>
 
 > **Phiên bản Alpha thử nghiệm.** AgentReady là bộ công cụ cho lập trình viên và Agent Skill có thể cài đặt, không phải bot mua hàng hay API thương mại trực tiếp. Chưa xác minh tích hợp storefront thực tế và WebMCP trên trình duyệt thật.
+
+## Chọn cách bắt đầu
+
+| Agent Skill · v0.3 Alpha | AI Readiness Scanner · v0.4 Preview |
+| :--- | :--- |
+| **Dành cho lập trình viên.** Cài Skill vào coding agent, kết nối dữ liệu sản phẩm công khai và sinh tài nguyên cho AI. | **Dành cho người muốn đánh giá website.** Nhập URL công khai, nhận điểm theo tiêu chí và báo cáo minh chứng. |
+| [Cài đặt Agent Skill](#cài-agent-skill) · [Xem bản phát hành](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [Xem giao diện Scanner](#scanner-thử-nghiệm) · [Mở nhánh V0.4](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
+| Bản Alpha đã phát hành. | Bản phát triển cục bộ; chưa phát hành, còn lỗi QA. |
 
 ## Vì sao cần AgentReady?
 
@@ -74,6 +84,18 @@ Không sửa checkout hoặc thanh toán.
 ```
 
 Skill ID giữ nguyên là `agentready`. Chưa kiểm chứng độc lập khả năng tương thích với các coding agent khác.
+
+## Scanner thử nghiệm
+
+<p align="center"><img src="docs/assets/scanner-preview.jpg" alt="Kết quả quét example.com trên dashboard V0.4" width="100%"></p>
+<p align="center"><sub>Ảnh chụp thực tế từ lần chạy cục bộ ngày 24/11/2026. Điểm hiển thị là kết quả của mô hình thử nghiệm, chưa được xác nhận độc lập; không phải chứng nhận toàn bộ website.</sub></p>
+
+Scanner cung cấp quét HTTP theo URL, điểm AI Readiness, phân nhóm tiêu chí, minh chứng và xuất JSON/Markdown. Nhánh V0.4 riêng có 49 kiểm thử đã đạt trong lần chạy độc lập trên Node.js 22.
+
+> [!WARNING]
+> Chỉ dùng cục bộ. Các lỗi QA về robots.txt, deadline, kiểm tra catalog, JSON-LD và tín hiệu WebMCP chưa xử lý. Không public API quét; không dùng điểm như kết luận toàn bộ website. Chỉ số Verified trên ảnh phản ánh cách tính hiện tại, không chứng minh khả năng Agent tương tác.
+
+[Hướng dẫn chạy và minh chứng](docs/vi/SHOWCASE.md) · [Giới hạn đã biết](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner/docs/SCANNER_PREVIEW.md) · [Draft PR #6](https://github.com/cuonghuhuu/agentready_B2A/pull/6)
 
 ## Tích hợp website của bạn
 
@@ -150,6 +172,8 @@ Không xuất thông tin xác thực, dữ liệu khách hàng, giá vốn, tồ
 
 - [x] Sinh snapshot công khai, adapter cục bộ và biến thể sản phẩm
 - [x] WebMCP mô phỏng và CI đa nền tảng
+- [x] Scanner V0.4 thử nghiệm cục bộ (nhánh riêng, chưa phát hành)
+- [ ] Sửa 5 lỗi QA Scanner và xác minh độ chính xác điểm số
 - [ ] Thử nghiệm trên storefront thực tế
 - [ ] Kiểm thử WebMCP bằng trình duyệt thật
 - [ ] Đồng bộ Public API an toàn và mở rộng nền tảng
@@ -162,4 +186,11 @@ Dự án sử dụng ý tưởng và tích hợp từ [AgentMarkup](https://gith
 
 [Giấy phép MIT](LICENSE) · [Đóng góp](docs/vi/CONTRIBUTING.md) · [Báo lỗi](https://github.com/cuonghuhuu/agentready_B2A/issues/new/choose)
 
-Nếu dự án hữu ích, bạn có thể tặng một Star hoặc chia sẻ phản hồi có thể tái hiện.
+## Cùng phát triển AgentReady
+
+Bạn có thể giúp dự án bằng cách thử một catalog công khai, báo lỗi có thể tái hiện, cải thiện bản dịch hoặc đóng góp kiểm thử. Không gửi dữ liệu khách hàng, bí mật hoặc báo cáo chứa thông tin nhạy cảm.
+
+<p align="center"><b><a href="https://github.com/cuonghuhuu/agentready_B2A">★ Star repository</a> · <a href="https://github.com/cuonghuhuu/agentready_B2A/fork">Fork</a> · <a href="https://github.com/cuonghuhuu/agentready_B2A/issues/new/choose">Gửi phản hồi</a></b></p>
+
+<p align="center"><sub>Phát triển công khai · MIT · <a href="SUPPORT.md">Hỗ trợ</a> · <a href="CODE_OF_CONDUCT.md">Quy tắc cộng đồng</a></sub></p>
+
