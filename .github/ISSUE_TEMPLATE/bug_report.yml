@@ -1,0 +1,42 @@
+name: Bug report
+description: Report a reproducible non-security defect in AgentReady B2A
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include credentials, customer data, or exploit details. Security issues should follow SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: "v0.2.0 / commit SHA"
+    validations:
+      required: true
+  - type: input
+    id: runtime
+    attributes:
+      label: Node.js / OS / browser
+      placeholder: "Node 22, Windows 11, browser if applicable"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include minimal commands and sanitized input.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations:
+      required: true

@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest a scoped interoperability improvement
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: Which developer or AI-agent workflow is currently unsupported?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed approach
+      description: Explain supported commerce type, adapter, and security boundaries.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Suggested acceptance tests
+      description: What evidence would demonstrate working support?
+    validations:
+      required: true
