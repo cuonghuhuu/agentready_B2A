@@ -23,3 +23,5 @@ Mốc phát triển: Agent Skill, CLI snapshot, helper AgentMarkup, runtime WebM
 ## Chưa phát hành
 
 Tài liệu song ngữ, banner và điều hướng. Không thay đổi runtime bản Alpha đã gắn tag.
+
+- Nhánh thử nghiệm V0.4 Scanner chỉ chạy cục bộ, chưa phát hành. Xem [trạng thái QA](SCANNER_PREVIEW.md).

@@ -1,8 +1,8 @@
 {
   "name": "agentready-b2a",
-  "version": "0.3.0-alpha.1",
+  "version": "0.4.0-alpha.1",
   "type": "module",
-  "description": "Reusable open-source toolkit and Agent Skill for public, read-only commerce catalogs and WebMCP integrations.",
+  "description": "Reusable open-source toolkit, AI Readiness Scanner, and Agent Skill for public, read-only commerce catalogs and WebMCP integrations.",
   "repository": {
     "type": "git",
     "url": "https://github.com/cuonghuhuu/agentready_B2A.git"
@@ -10,16 +10,20 @@
   "exports": {
     "./adapters": "./src/adapters.mjs",
     "./commerce-model": "./src/commerce-model.mjs",
-    "./integrations/agentmarkup-next": "./src/integrations/agentmarkup-next.mjs"
+    "./integrations/agentmarkup-next": "./src/integrations/agentmarkup-next.mjs",
+    "./scanner": "./src/scanner/index.mjs"
   },
   "bin": {
     "agentready": "./bin/agentready.mjs"
   },
   "scripts": {
-    "test": "node --test tests/adapters.test.mjs tests/agentmarkup.test.mjs tests/agentready.test.mjs tests/commerce-variants.test.mjs",
+    "test": "node --test tests/adapters.test.mjs tests/agentmarkup.test.mjs tests/agentready.test.mjs tests/commerce-variants.test.mjs tests/scanner-security.test.mjs tests/scanner-engine.test.mjs tests/scanner-scoring.test.mjs tests/scanner-server.test.mjs",
+    "test:v03": "node --test tests/adapters.test.mjs tests/agentmarkup.test.mjs tests/agentready.test.mjs tests/commerce-variants.test.mjs",
+    "test:scanner": "node --test tests/scanner-security.test.mjs tests/scanner-engine.test.mjs tests/scanner-scoring.test.mjs tests/scanner-server.test.mjs",
     "demo": "node bin/agentready.mjs generate --project examples/ecommerce-demo --force && node bin/agentready.mjs verify --project examples/ecommerce-demo",
     "verify:demo": "node bin/agentready.mjs verify --project examples/ecommerce-demo",
-    "serve:demo": "node bin/serve-demo.mjs"
+    "serve:demo": "node bin/serve-demo.mjs",
+    "serve:scanner": "node bin/serve-scanner.mjs"
   },
   "engines": {
     "node": ">=20"

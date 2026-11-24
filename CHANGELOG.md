@@ -6,6 +6,8 @@ Notable documented changes to AgentReady B2A are recorded here. This file descri
 
 ## [Unreleased]
 
+- Local-only V0.4 Scanner development preview: HTTP inspection, deterministic score, dashboard, JSON/Markdown exports and 18 additional tests. Known QA blockers remain; see [preview status](docs/SCANNER_PREVIEW.md). No V0.4 release yet.
+
 - Bilingual documentation and repository presentation; no runtime changes.
 
 ## [0.3.0-alpha.1] — 2026-11-24 — [GitHub release](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1)

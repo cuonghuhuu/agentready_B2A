@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AgentReady B2A — AI Readiness Scanner</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">AR</span>
+        <div>
+          <span class="brand-name">AgentReady B2A</span>
+          <span class="brand-badge">v0.4 Scanner</span>
+        </div>
+      </div>
+
+      <nav class="topbar-actions" aria-label="Scanner controls">
+        <a class="nav-link" href="/demo" data-i18n="navDemo">Storefront Demo (v0.3)</a>
+        <div class="segmented" role="group" aria-label="Language">
+          <button type="button" class="seg-btn active" id="lang-en" data-lang="en">EN</button>
+          <button type="button" class="seg-btn" id="lang-vi" data-lang="vi">VI</button>
+        </div>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle color theme" title="Toggle theme">
+          <span id="theme-label">Light</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="eyebrow">LOCAL-FIRST · READ-ONLY · SSRF-PROTECTED</p>
+        <h1 data-i18n="heroTitle">Website AI Readiness Scanner</h1>
+        <p class="hero-subtitle" data-i18n="heroSubtitle">
+          Inspect public websites for AI-agent discovery, Schema.org commerce data, semantic readability, and WebMCP signals with deterministic, evidence-backed scoring.
+        </p>
+      </div>
+
+      <form class="scan-form" id="scan-form" novalidate>
+        <div class="input-row">
+          <label class="sr-only" for="url-input" data-i18n="urlLabel">Public website URL</label>
+          <input
+            id="url-input"
+            name="url"
+            type="url"
+            inputmode="url"
+            autocomplete="url"
+            placeholder="https://example.com"
+            required
+          />
+          <label class="sr-only" for="mode-select" data-i18n="modeLabel">Scan mode</label>
+          <select id="mode-select" name="mode" aria-label="Scan mode">
+            <option value="auto" data-i18n="modeAuto">Auto-detect</option>
+            <option value="commerce" data-i18n="modeCommerce">Commerce audit</option>
+            <option value="general" data-i18n="modeGeneral">General website</option>
+          </select>
+          <button type="submit" class="primary-btn" id="scan-btn" data-i18n="scanButton">Run Scan</button>
+        </div>
+        <p class="form-note" data-i18n="formNote">
+          Only public http:// and https:// URLs on ports 80/443 are permitted. Private/loopback IPs, credentials in URLs, and checkout mutations are blocked.
+        </p>
+      </form>
+    </section>
+
+    <section class="panel error-panel hidden" id="error-panel" role="alert">
+      <div class="error-header">
+        <strong id="error-code">ERROR</strong>
+        <button type="button" class="ghost-btn" id="error-dismiss" data-i18n="dismiss">Dismiss</button>
+      </div>
+      <p id="error-message"></p>
+    </section>
+
+    <section class="panel progress-panel hidden" id="progress-panel" aria-live="polite">
+      <div class="panel-header">
+        <h2 data-i18n="progressTitle">Live Scan Progress</h2>
+        <span class="mono-pill" id="progress-counter">0 requests</span>
+      </div>
+      <ol class="step-list" id="step-list"></ol>
+    </section>
+
+    <section class="results hidden" id="results-section">
+      <div class="disclaimer-bar" id="disclaimer-bar"></div>
+
+      <div class="overview-grid">
+        <div class="panel score-card">
+          <div class="gauge-wrap">
+            <svg class="gauge-svg" viewBox="0 0 140 140" role="img" aria-label="AI Readiness Score">
+              <circle class="gauge-track" cx="70" cy="70" r="58" />
+              <circle class="gauge-fill" id="gauge-fill" cx="70" cy="70" r="58" />
+            </svg>
+            <div class="gauge-center">
+              <span class="gauge-value" id="score-value">0</span>
+              <span class="gauge-sub" id="score-sub">/ 100</span>
+            </div>
+          </div>
+          <div class="score-meta">
+            <div class="grade-row">
+              <span class="grade-badge" id="grade-badge">-</span>
+              <span class="profile-pill" id="site-profile-pill">auto</span>
+            </div>
+            <h2 id="result-title">Scan Result</h2>
+            <p class="mono-url" id="result-url"></p>
+            <div class="metric-chips">
+              <span class="chip" id="applicable-chip">Applicable: --</span>
+              <span class="chip" id="coverage-chip">Verified: --</span>
+              <span class="chip" id="duration-chip">-- ms</span>
+            </div>
+            <div class="export-row">
+              <button type="button" class="secondary-btn" id="export-json-btn" data-i18n="exportJson">Export JSON</button>
+              <button type="button" class="secondary-btn" id="export-md-btn" data-i18n="exportMd">Export Markdown</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel categories-card">
+          <div class="panel-header">
+            <h2 data-i18n="categoryBreakdown">Category Breakdown</h2>
+            <span class="muted-text" id="scoring-version-label">v1.0.0</span>
+          </div>
+          <div class="category-list" id="category-list"></div>
+        </div>
+      </div>
+
+      <div class="panel capabilities-card">
+        <h2 data-i18n="capabilitiesTitle">Detected Signals vs. Verified Capabilities</h2>
+        <div class="cap-grid">
+          <div class="cap-col">
+            <h3 data-i18n="verifiedCap">Verified Capabilities (HTTP)</h3>
+            <ul class="cap-list" id="verified-cap-list"></ul>
+          </div>
+          <div class="cap-col">
+            <h3 data-i18n="detectedSig">Detected Static Signals</h3>
+            <ul class="cap-list" id="detected-sig-list"></ul>
+          </div>
+          <div class="cap-col">
+            <h3 data-i18n="unverifiedCap">Unverified Capabilities</h3>
+            <ul class="cap-list" id="unverified-cap-list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <section class="panel criteria-panel">
+        <div class="panel-header criteria-header">
+          <h2 data-i18n="criteriaTitle">Detailed Evidence &amp; Recommendations</h2>
+          <div class="filter-bar" id="status-filters" role="group" aria-label="Filter criteria by status">
+            <button type="button" class="filter-btn active" data-filter="ALL">ALL</button>
+            <button type="button" class="filter-btn" data-filter="PASS">PASS</button>
+            <button type="button" class="filter-btn" data-filter="PARTIAL">PARTIAL</button>
+            <button type="button" class="filter-btn" data-filter="FAIL">FAIL</button>
+            <button type="button" class="filter-btn" data-filter="UNVERIFIED">UNVERIFIED</button>
+            <button type="button" class="filter-btn" data-filter="NOT_APPLICABLE">N/A</button>
+          </div>
+        </div>
+        <div class="criteria-list" id="criteria-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span data-i18n="footerDisclaimer">AgentReady-defined scoring model, not an official industry certification.</span>
+      <a href="/demo" data-i18n="footerDemoLink">Open v0.3 Fictional Storefront Demo</a>
+    </div>
+  </footer>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>
