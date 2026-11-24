@@ -1,0 +1,8 @@
+{
+  "siteName": "Sample Fashion Store",
+  "siteUrl": "https://fashion.example",
+  "siteDescription": "Fictional public fashion catalog for testing.",
+  "publicProductsPath": "data/agentready-products.json",
+  "mode": "snapshot",
+  "webmcp": true
+}

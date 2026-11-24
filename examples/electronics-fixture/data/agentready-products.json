@@ -1,0 +1,58 @@
+[
+  {
+    "id": "phone-250",
+    "published": true,
+    "name": "Demo Smartphone",
+    "brand": "Example Devices",
+    "category": "Phones",
+    "sku": "PHONE-BASE",
+    "price": 12990000,
+    "currency": "VND",
+    "availability": "InStock",
+    "url": "/products/demo-phone",
+    "attributes": {
+      "screen": "6.5 inch"
+    },
+    "variants": [
+      {
+        "id": "128gb",
+        "published": true,
+        "label": "128GB",
+        "sku": "PHONE-128",
+        "price": 12990000,
+        "currency": "VND",
+        "availability": "InStock",
+        "attributes": {
+          "storage": "128GB"
+        }
+      },
+      {
+        "id": "256gb",
+        "published": true,
+        "label": "256GB",
+        "sku": "PHONE-256",
+        "price": 14990000,
+        "currency": "VND",
+        "availability": "PreOrder",
+        "attributes": {
+          "storage": "256GB"
+        }
+      }
+    ]
+  },
+  {
+    "id": "headphones",
+    "published": true,
+    "name": "Demo Headphones",
+    "brand": "Example Devices",
+    "category": "Audio",
+    "sku": "AUDIO-1",
+    "price": 1590000,
+    "currency": "VND",
+    "availability": "OutOfStock",
+    "url": "/products/demo-headphones",
+    "attributes": {
+      "wireless": "true"
+    }
+  }
+]

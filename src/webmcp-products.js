@@ -9,12 +9,24 @@ if (typeof document !== 'undefined' && document.modelContext && !window.__agentr
   window.__agentreadyWebMcpRegistered = true;
   const result = value => ({ content: [{ type: 'text', text: JSON.stringify(value) }] });
   const failure = message => ({ isError: true, content: [{ type: 'text', text: message }] });
-  const simplify = p => ({
-    id: p.id, name: p.name, brand: p.brand, category: p.category,
-    price: p.price, currency: p.currency, availability: p.availability,
-    url: p.url, description: (p.description || '').slice(0, 250),
-    attributes: p.attributes || {}
-  });
+  const lowestPrice = p => p.variants?.length
+    ? Math.min(...p.variants.map(v=>v.price)) : p.price;
+  const simplify = (p, {details=false}={}) => {
+    const variants=Array.isArray(p.variants)?p.variants:[];
+    const available=variants.length
+      ? (variants.some(v=>v.availability==='InStock')?'InStock':
+        variants.some(v=>v.availability==='PreOrder')?'PreOrder':'OutOfStock')
+      : p.availability;
+    return {
+      id:p.id,name:p.name,brand:p.brand,category:p.category,
+      price:lowestPrice(p),currency:p.currency,availability:available,
+      url:p.url,description:(p.description||'').slice(0,250),
+      attributes:p.attributes||{},
+      ...(variants.length?{variantCount:variants.length,
+        priceRange:{min:lowestPrice(p),max:Math.max(...variants.map(v=>v.price))}}:{}),
+      ...(details&&variants.length?{variants}:{})
+    };
+  };
 
   async function catalog() {
     const response = await fetch('/agentready/catalog.json', { credentials: 'omit', cache: 'no-store' });
@@ -48,8 +60,8 @@ if (typeof document !== 'undefined' && document.modelContext && !window.__agentr
         const terms=query.trim().toLocaleLowerCase().split(/\s+/);
         const products=await catalog();
         const matches=products.filter(p=>{
-          const text=[p.name,p.brand,p.category,p.description, ...Object.values(p.attributes || {})].join(' ').toLocaleLowerCase();
-          return terms.every(t=>text.includes(t)) && (maxPrice===undefined || p.price<=maxPrice);
+          const text=[p.name,p.brand,p.category,p.description, ...Object.values(p.attributes || {}), ...((p.variants||[]).flatMap(v=>[v.label,v.sku,...Object.values(v.attributes||{})]))].join(' ').toLocaleLowerCase();
+          return terms.every(t=>text.includes(t)) && (maxPrice===undefined || lowestPrice(p)<=maxPrice);
         });
         return result({totalMatches:matches.length,items:matches.slice(0,max).map(simplify),mode:'public_snapshot'});
       })
@@ -63,7 +75,7 @@ if (typeof document !== 'undefined' && document.modelContext && !window.__agentr
         if (typeof id!=='string' || !/^[a-zA-Z0-9._-]{1,120}$/.test(id)) return failure('Invalid id.');
         const products=await catalog();
         const product=products.find(p=>p.id===id);
-        return product?result({item:simplify(product),mode:'public_snapshot'}):failure('Product not found.');
+        return product?result({item:simplify(product,{details:true}),mode:'public_snapshot'}):failure('Product not found.');
       })
     }
   ], { validate: false, onError: () => { window.__agentreadyWebMcpRegistered = false; } });

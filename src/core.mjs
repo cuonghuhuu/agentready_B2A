@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { normalizePublicVariants } from './commerce-model.mjs';
 
 const THIS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(THIS_DIR, '..');
@@ -85,7 +86,8 @@ function validProduct(product, index, origin) {
       attributes[key] = String(val).slice(0, 200);
     }
   }
-  return {id, name, url, description, brand, category, sku, price, currency, availability, ...(image ? {image} : {}), attributes};
+  const variants = normalizePublicVariants(product.variants, {origin, parentId:id, parentCurrency:currency, parentUrl:url});
+  return {id, name, url, description, brand, category, sku, price, currency, availability, ...(image ? {image} : {}), attributes, ...(variants !== undefined ? {variants} : {})};
 }
 
 async function writeNewFile(file, data, {force = false} = {}) {
@@ -162,7 +164,9 @@ function makeJsonLd(site) {
         ...(p.sku?{sku:p.sku}:{}),
         ...(p.brand?{brand:{'@type':'Brand',name:p.brand}}:{}),
         ...(p.image?{image:site.origin+p.image}:{}),
-        offers:{'@type':'Offer',price:p.price,priceCurrency:p.currency,availability:`https://schema.org/${p.availability}`,url:site.origin+p.url}
+        offers:p.variants?.length
+          ? p.variants.map(v=>({'@type':'Offer',name:v.label || p.name,price:v.price,priceCurrency:v.currency,availability:'https://schema.org/'+v.availability,url:site.origin+v.url}))
+          : {'@type':'Offer',price:p.price,priceCurrency:p.currency,availability:`https://schema.org/${p.availability}`,url:site.origin+p.url}
       }
     }))
   };
@@ -171,6 +175,18 @@ function makeMarkdown(site) {
   const head=[`# ${markdownEscape(site.siteName)} — Public product catalog`, '', markdownEscape(site.siteDescription), '', `Source: ${site.origin}/agentready/catalog.json`, 'This is a PUBLIC SNAPSHOT. Re-check live price and stock with the store before ordering.', ''];
   for (const p of site.products) {
     head.push(`## ${markdownEscape(p.name)}`, `- Product URL: ${site.origin+p.url}`, `- Brand: ${markdownEscape(p.brand||'Not specified')}`, `- Category: ${markdownEscape(p.category||'Not specified')}`, `- SKU: ${markdownEscape(p.sku||'Not specified')}`, `- Price: ${p.price} ${p.currency}`, `- Availability: ${p.availability}`, ...(p.description?[`- Description: ${markdownEscape(p.description)}`]:[]), ...Object.entries(p.attributes).map(([k,v])=>`- ${k}: ${markdownEscape(v)}`),'');
+    if (p.variants?.length) {
+      head.push('### Public variants', '');
+      for (const v of p.variants) {
+        head.push('- Variant: ' + markdownEscape(v.label || v.id),
+          '  - SKU: ' + markdownEscape(v.sku || 'Not specified'),
+          '  - Price: ' + v.price + ' ' + v.currency,
+          '  - Availability: ' + v.availability,
+          '  - URL: ' + site.origin + v.url,
+          ...Object.entries(v.attributes).map(([k,val])=>'  - ' + markdownEscape(k) + ': ' + markdownEscape(val)),
+          '');
+      }
+    }
   }
   return head.join('\n').replace(/\n+$/,'')+'\n';
 }
@@ -196,7 +212,7 @@ export async function generate(project,{force=false}={}) {
   const root=path.resolve(project);
   const site=await loadSite(root);
   const pub=path.join(root,'public');
-  const catalog={schemaVersion:'agentready.catalog.v0.1',siteName:site.siteName,siteUrl:site.origin,generatedAt:new Date().toISOString(),mode:'snapshot',products:site.products.map(p=>({...p,url:site.origin+p.url,...(p.image?{image:site.origin+p.image}:{})}))};
+  const catalog={schemaVersion:'agentready.catalog.v0.1',siteName:site.siteName,siteUrl:site.origin,generatedAt:new Date().toISOString(),mode:'snapshot',products:site.products.map(p=>({...p,url:site.origin+p.url,...(p.image?{image:site.origin+p.image}:{}),...(p.variants?{variants:p.variants.map(v=>({...v,url:site.origin+v.url}))}:{})}))};
   const manifest={version:'agentready.v0.1',name:site.siteName,site:site.origin,mode:'snapshot',productCount:site.products.length,publicEndpoints:['/llms.txt','/agentready/catalog.json','/agentready/catalog.md','/agentready/products.jsonld'],webmcp:site.webmcp?{asset:'/agentready/webmcp-products.js',readOnlyTools:['agentready_search_products','agentready_get_product']}:null,security:{mutatingTools:false,checkout:false,authenticationBypass:false}};
   const generated={
     'llms.txt':makeLlms(site),
@@ -232,7 +248,19 @@ export async function verify(project) {
   if (!llms.includes(`${site.origin}/agentready/catalog.json`)) errors.push('Missing catalog link in llms.txt');
   for (const [i,p] of site.products.entries()) {
     if (catalog.products[i]?.id!==p.id||catalog.products[i]?.price!==p.price||catalog.products[i]?.availability!==p.availability) errors.push(`Catalog differs from public source: ${p.id}`);
-    if (schema.itemListElement[i]?.item?.offers?.price!==p.price) errors.push(`JSON-LD offer differs from source: ${p.id}`);
+    const offers=schema.itemListElement[i]?.item?.offers;
+    if (p.variants?.length) {
+      if (!Array.isArray(offers) || offers.length!==p.variants.length ||
+        offers.some((offer,index)=>offer.price!==p.variants[index].price ||
+          offer.priceCurrency!==p.variants[index].currency ||
+          offer.availability!=='https://schema.org/'+p.variants[index].availability)) {
+        errors.push(`JSON-LD variant offers differ from source: ${p.id}`);
+      }
+    } else if (offers?.price!==p.price) errors.push(`JSON-LD offer differs from source: ${p.id}`);
+    const publicVariants=p.variants?.map(v=>({...v,url:site.origin+v.url}));
+    if (JSON.stringify(catalog.products[i]?.variants || []) !== JSON.stringify(publicVariants || [])) {
+      errors.push(`Catalog variants differ from source: ${p.id}`);
+    }
     if (!md.includes(`${site.origin+p.url}`)) errors.push(`Markdown missing public URL: ${p.id}`);
   }
   return {ok:errors.length===0,errors,productCount:site.products.length,origin:site.origin,notice:'Local file consistency only. Does NOT prove deployment, real-time inventory, or external agent behavior.'};
