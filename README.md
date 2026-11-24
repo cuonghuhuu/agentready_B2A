@@ -1,5 +1,23 @@
 # AgentReady B2A
 
+<!-- AGENTREADY-OPEN-SOURCE-HEADER -->
+<div align="center">
+
+### B2A · Business to Agent
+
+**Make public e-commerce data discoverable and usable by compatible AI agents.**
+
+[![CI](https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml/badge.svg)](https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-2ea44f.svg)](LICENSE)
+![Node.js 20+](https://img.shields.io/badge/Node.js-20%2B-339933.svg)
+![Status: Experimental](https://img.shields.io/badge/status-experimental-orange.svg)
+
+[Quick start](#try-the-example) · [Skill installation](#install-the-agent-skill) · [Architecture](ARCHITECTURE.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
+
+</div>
+
+> **Project status — experimental v0.2.0.** Public catalog snapshots and simulated read-only WebMCP tool tests are available. Live-store adapters, actual WebMCP browser evaluation and automatic commerce-platform compatibility have **not** been verified. See [TEST_REPORT.md](TEST_REPORT.md).
+
 AgentReady B2A is a reusable open-source toolkit for e-commerce developers. It helps a website publish a truthful public product snapshot and optionally expose safe, read-only product search tools to compatible browser agents. It is not a storefront or a solution for a particular business. The included shop data is fictional demonstration data.
 
 The installable Agent Skill identifier remains **`agentready`** for compatibility.
@@ -116,3 +134,16 @@ GitHub Actions runs the test suite and verifies the demo on Node.js 20 and 22 fo
 - [GoogleChromeLabs/webmcp-tools](https://github.com/GoogleChromeLabs/webmcp-tools) — upstream WebMCP Evals smoke-fixture format; Apache-2.0. No upstream source is copied.
 
 The toolkit's original code is MIT licensed; see [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Project documentation
+
+| Document | Purpose |
+| --- | --- |
+| [Architecture](ARCHITECTURE.md) | Current modules, data flow, and technical limitations. |
+| [Contributing](CONTRIBUTING.md) | Development workflow and pull request expectations. |
+| [Security](SECURITY.md) | Security boundaries and private vulnerability reporting. |
+| [Changelog](CHANGELOG.md) | Version history and outstanding work. |
+| [Test report](TEST_REPORT.md) | Verification evidence and tests not yet run. |
+| [Third-party notices](THIRD_PARTY_NOTICES.md) | Attribution for reused upstream components. |
+
+Contributions and bug reports are welcome. This project is not affiliated with or endorsed by AgentMarkup, WebMCPify, or Google Chrome Labs.
