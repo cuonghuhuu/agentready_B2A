@@ -22,6 +22,24 @@
 
 > **Experimental alpha.** AgentReady is a developer toolkit and installable Agent Skill, not a shopping bot or a live commerce API. Real storefront builds and browser interoperability are not yet verified.
 
+
+> [!WARNING]
+> **V0.4 Development Preview — local use only.** This branch is unreleased; the latest published version remains v0.3.0-alpha.1. Known scanner QA defects remain unresolved. Do not expose the scanning API publicly or treat the score as a certification or whole-site assessment.
+
+## Try the AI Readiness Scanner (V0.4)
+
+```bash
+git clone --branch feature/v0.4-ai-readiness-scanner https://github.com/cuonghuhuu/agentready_B2A.git
+cd agentready_B2A
+npm test
+npm run demo
+npm run serve:scanner
+```
+
+Open [http://127.0.0.1:4174](http://127.0.0.1:4174) and enter a public URL. The fictional storefront remains at `/demo`. JSON/Markdown export, EN/VI controls and dark/light mode are available; localization is incomplete. The scanner inspects a URL and metadata endpoints, not the entire website.
+
+[Architecture](SCANNER_ARCHITECTURE.md) · [Scoring methodology](SCORING_METHODOLOGY.md) · [Known limitations and QA](docs/SCANNER_PREVIEW.md) · [Security](SCANNER_SECURITY.md)
+
 ## Why AgentReady?
 
 Your storefront already has product information. AI agents need a predictable, concise and trustworthy way to read it. AgentReady helps developers reuse approved public data, normalize it into a portable catalog and expose optional read-only tools — without changing checkout or granting access to private records.

@@ -22,6 +22,24 @@
 
 > **Phiên bản Alpha thử nghiệm.** AgentReady là bộ công cụ cho lập trình viên và Agent Skill có thể cài đặt, không phải bot mua hàng hay API thương mại trực tiếp. Chưa xác minh tích hợp storefront thực tế và WebMCP trên trình duyệt thật.
 
+
+> [!WARNING]
+> **V0.4 Development Preview — chỉ dùng cục bộ.** Đây là nhánh phát triển chưa phát hành; bản GitHub Release hiện tại vẫn là v0.3.0-alpha.1. Scanner có lỗi QA chưa xử lý và chưa đủ điều kiện triển khai API quét công khai. Không dùng điểm như chứng nhận hoặc kết luận về toàn bộ website.
+
+## Thử AI Readiness Scanner (V0.4)
+
+```bash
+git clone --branch feature/v0.4-ai-readiness-scanner https://github.com/cuonghuhuu/agentready_B2A.git
+cd agentready_B2A
+npm test
+npm run demo
+npm run serve:scanner
+```
+
+Mở [http://127.0.0.1:4174](http://127.0.0.1:4174), nhập URL công khai. Demo cửa hàng vẫn ở `/demo`. Có thể xuất JSON/Markdown; giao diện Anh–Việt chưa dịch hết. Chỉ quét URL và một số endpoint metadata, chưa crawl toàn bộ website.
+
+[Kiến trúc](SCANNER_ARCHITECTURE.md) · [Cách tính điểm](SCORING_METHODOLOGY.md) · [Giới hạn & QA tiếng Việt](docs/vi/SCANNER_PREVIEW.md) · [Bảo mật](SCANNER_SECURITY.md)
+
 ## Vì sao cần AgentReady?
 
 Website đã có thông tin sản phẩm, nhưng AI Agent cần cách đọc dữ liệu có cấu trúc, nhất quán và gọn nhẹ. AgentReady giúp lập trình viên tái sử dụng dữ liệu công khai đã duyệt, chuẩn hóa catalog và cung cấp công cụ chỉ đọc tùy chọn, không thay đổi checkout hay cấp quyền truy cập thông tin riêng tư.

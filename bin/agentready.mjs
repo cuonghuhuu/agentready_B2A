@@ -2,6 +2,7 @@
 import path from 'node:path';
 import {inspect,init,generate,verify} from '../src/core.mjs';
 import {importCatalog} from '../src/adapters.mjs';
+import {scanWebsite, formatReportMarkdown} from '../src/scanner/index.mjs';
 
 const args=process.argv.slice(2);
 const command=args[0] || 'help';
@@ -32,6 +33,20 @@ try {
       if(!result.ok) process.exitCode=1;
       break;
     }
+    case 'scan': {
+      const targetUrl=flag('--url');
+      if(!targetUrl) throw new Error('Missing required --url <https://example.com>');
+      const mode=flag('--mode', 'auto');
+      const format=flag('--format', 'json');
+      const lang=flag('--lang', 'en');
+      const result=await scanWebsite(targetUrl, { mode });
+      if (format === 'markdown') {
+        console.log(formatReportMarkdown(result, lang));
+      } else {
+        output(result);
+      }
+      break;
+    }
     case 'help':
     default: console.log(`AgentReady B2A (Node >=20; zero base CLI dependencies)
 
@@ -40,11 +55,12 @@ try {
   node bin/agentready.mjs import --project <website> --source <file> [--format auto|shopify|woocommerce|jsonld] [--currency USD] [--trusted-public-source] [--allow-attributes color,size] [--force]
   node bin/agentready.mjs generate --project <website> [--force]
   node bin/agentready.mjs verify --project <website>
+  node bin/agentready.mjs scan --url <https://example.com> [--mode auto|commerce|general] [--format json|markdown] [--lang en|vi]
 
 IMPORTANT: generator writes only website/public/llms.txt and website/public/agentready/.
 No existing files are overwritten unless --force is passed. --force overwrites only known output files.
 Published products must be explicitly marked published:true in a JSON data adapter.
-This tool does not automatically connect to private DB or change checkout/payment code.`);
+The scanner is local-first, read-only, SSRF-protected, and does not access private endpoints or perform checkout/mutations.`);
     if(command!=='help') process.exitCode=1;
   }
 } catch(error) {
