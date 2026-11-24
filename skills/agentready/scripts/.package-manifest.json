@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0.0",
+  "skillId": "agentready",
+  "packageVersion": "0.3.0-alpha.1",
+  "generator": "scripts/package-skill.mjs",
+  "files": {
+    "LICENSE": {
+      "source": "LICENSE",
+      "sha256": "d702b2bd302997c6bbf1955e19be54e190995faa1ca9f9e1df120ddf00cf6e0a",
+      "bytes": 1102
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "source": "THIRD_PARTY_NOTICES.md",
+      "sha256": "12805b784b32ef842ee1105b1ff6ab72ba6169fe17e5d76aade45188cf0fc436",
+      "bytes": 775
+    },
+    "references/COMMERCE_VARIANTS.md": {
+      "source": "docs/COMMERCE_VARIANTS.md",
+      "sha256": "68335f58aca6450d1af9998f7b680a46180a221d6c5785374caf5ba6ffbf0761",
+      "bytes": 2717
+    },
+    "scripts/agentready.mjs": {
+      "source": "generated:entrypoint",
+      "sha256": "dccf7119aac599b2950c6ec385d5c68cbc0ad3750f2920d0cb84cc8bfc2734f7",
+      "bytes": 119
+    },
+    "scripts/bin/agentready.mjs": {
+      "source": "bin/agentready.mjs",
+      "sha256": "0d940cb8d676cba079ddd6d6aafd9a3feab3d312ea2ce87ed0fe0fa25953a81f",
+      "bytes": 2546
+    },
+    "scripts/package.json": {
+      "source": "generated:package.json",
+      "sha256": "fb89df68288e8b1435644da06701ca2ed7c036560523e8ea4d954b58fa31f8d9",
+      "bytes": 261
+    },
+    "scripts/src/adapters.mjs": {
+      "source": "src/adapters.mjs",
+      "sha256": "4709e1462853ddc71b624249690cc95e8008d0f14dd4e3c253d9ceb4a15caeea",
+      "bytes": 35756
+    },
+    "scripts/src/commerce-model.mjs": {
+      "source": "src/commerce-model.mjs",
+      "sha256": "b72262876c5ed5a35a1bf73631e3a341d74ff60e9e0ce1f2d89862d7484f2c42",
+      "bytes": 4845
+    },
+    "scripts/src/core.mjs": {
+      "source": "src/core.mjs",
+      "sha256": "f56335405a301604fb47f1ddc4b42e0afa168ab235d38744e3f5c0977ae14a43",
+      "bytes": 18390
+    },
+    "scripts/src/integrations/agentmarkup-next.mjs": {
+      "source": "src/integrations/agentmarkup-next.mjs",
+      "sha256": "a0b2605c58098b0021898f17d3cfe4e47b5d52b07032bc591d79ae2407753dfb",
+      "bytes": 1907
+    },
+    "scripts/src/webmcp-products.js": {
+      "source": "src/webmcp-products.js",
+      "sha256": "ccd6f54be62c58139634b5e92669053110cf6ff38e65c8ab67c57fcd23d1c712",
+      "bytes": 10512
+    },
+    "scripts/src/webmcpify-runtime.js": {
+      "source": "src/webmcpify-runtime.js",
+      "sha256": "3d1c3981eebeb37cc189048abf21e5c089c0f23c4103a4d041c56c8d2029cbe8",
+      "bytes": 12306
+    }
+  }
+}

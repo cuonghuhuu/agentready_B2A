@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+import path from 'node:path';
+import {inspect,init,generate,verify} from '../src/core.mjs';
+import {importCatalog} from '../src/adapters.mjs';
+
+const args=process.argv.slice(2);
+const command=args[0] || 'help';
+function flag(name, fallback) {
+  const i=args.indexOf(name);
+  if (i<0) return fallback;
+  if (i+1>=args.length || args[i+1].startsWith('--')) throw new Error(`Missing value for ${name}`);
+  return args[i+1];
+}
+const project=path.resolve(flag('--project', '.'));
+const force=args.includes('--force');
+const trustedPublicSource=args.includes('--trusted-public-source');
+function output(o) { console.log(JSON.stringify(o,null,2)); }
+try {
+  switch (command) {
+    case 'inspect': output(await inspect(project)); break;
+    case 'init': output(await init(project,{siteName:flag('--site-name'),siteUrl:flag('--site-url'),force})); break;
+    case 'import': {
+      const rawAllowed=flag('--allow-attributes');
+      const allowedAttributes=rawAllowed!==undefined ? rawAllowed.split(',').map(s=>s.trim()).filter(Boolean) : undefined;
+      output(await importCatalog(project,{source:flag('--source'),format:flag('--format','auto'),currency:flag('--currency'),force,trustedPublicSource,allowedAttributes}));
+      break;
+    }
+    case 'generate': output(await generate(project,{force})); break;
+    case 'verify': {
+      const result=await verify(project);
+      output(result);
+      if(!result.ok) process.exitCode=1;
+      break;
+    }
+    case 'help':
+    default: console.log(`AgentReady B2A (Node >=20; zero base CLI dependencies)
+
+  node bin/agentready.mjs inspect --project <website>
+  node bin/agentready.mjs init --project <website> [--site-name "Name"] [--site-url https://example.com]
+  node bin/agentready.mjs import --project <website> --source <file> [--format auto|shopify|woocommerce|jsonld] [--currency USD] [--trusted-public-source] [--allow-attributes color,size] [--force]
+  node bin/agentready.mjs generate --project <website> [--force]
+  node bin/agentready.mjs verify --project <website>
+
+IMPORTANT: generator writes only website/public/llms.txt and website/public/agentready/.
+No existing files are overwritten unless --force is passed. --force overwrites only known output files.
+Published products must be explicitly marked published:true in a JSON data adapter.
+This tool does not automatically connect to private DB or change checkout/payment code.`);
+    if(command!=='help') process.exitCode=1;
+  }
+} catch(error) {
+  console.error('[AgentReady]',error.message);
+  process.exitCode=1;
+}

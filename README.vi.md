@@ -15,6 +15,7 @@
   <a href="https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner"><img alt="V0.4 scanner preview" src="docs/assets/preview-badge.svg"></a>
 </p>
 <p align="center">
+  <a href="#cài-đặt-agent-skill-đa-nền-tảng">Cài Skill</a> ·
   <a href="#bắt-đầu-nhanh">Bắt đầu</a> ·
   <a href="#tích-hợp-website-của-bạn">Tích hợp</a> ·
   <a href="#tài-liệu">Tài liệu</a> ·
@@ -22,15 +23,27 @@
   <a href="https://github.com/cuonghuhuu/agentready_B2A/releases">Phát hành</a>
 </p>
 
-> **Phiên bản Alpha thử nghiệm.** AgentReady là bộ công cụ cho lập trình viên và Agent Skill có thể cài đặt, không phải bot mua hàng hay API thương mại trực tiếp. Chưa xác minh tích hợp storefront thực tế và WebMCP trên trình duyệt thật.
+> **Phiên bản Alpha thử nghiệm.** AgentReady là bộ công cụ cho lập trình viên và Agent Skill độc lập có thể cài đặt, không phải bot mua hàng hay API thương mại trực tiếp. Chưa xác minh tích hợp storefront thực tế, chạy trực tiếp trong các coding agent bên thứ ba và WebMCP trên trình duyệt thật.
+
+## Cài đặt Agent Skill đa nền tảng
+
+Cài đặt Skill tự chứa `agentready` trên **Windows, Linux hoặc macOS** (Node.js 20+, không phụ thuộc thư viện ngoài, không yêu cầu MCP server) bằng [Vercel Skills CLI](https://github.com/vercel-labs/skills):
+
+```bash
+npx skills add cuonghuhuu/agentready_B2A --skill agentready -g
+```
+
+- **Kích hoạt:** `$agentready` trên OpenAI Codex CLI, `/agentready` trên Anthropic Claude Code, hoặc `/agentready` trên Google Antigravity CLI (`agy`).
+- **Cập nhật / Gỡ cài đặt:** `npx skills update` · `npx skills remove agentready -g`.
+- **Hướng dẫn chi tiết & ma trận tương thích:** [Cài đặt Skill & Ma trận tương thích](docs/vi/SKILL_INSTALLATION.md) (phân biệt rõ kiểm thử mô phỏng với chạy thực tế trên từng agent).
 
 ## Chọn cách bắt đầu
 
 | Agent Skill · v0.3 Alpha | AI Readiness Scanner · v0.4 Preview |
 | :--- | :--- |
-| **Dành cho lập trình viên.** Cài Skill vào coding agent, kết nối dữ liệu sản phẩm công khai và sinh tài nguyên cho AI. | **Dành cho người muốn đánh giá website.** Nhập URL công khai, nhận điểm theo tiêu chí và báo cáo minh chứng. |
-| [Cài đặt Agent Skill](#cài-agent-skill) · [Xem bản phát hành](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [Xem giao diện Scanner](#scanner-thử-nghiệm) · [Mở nhánh V0.4](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
-| Bản Alpha đã phát hành. | Bản phát triển cục bộ; chưa phát hành, còn lỗi QA. |
+| **Dành cho lập trình viên.** Cài Skill tự chứa vào coding agent tương thích, kết nối dữ liệu sản phẩm công khai và sinh tài nguyên cho AI. | **Dành cho người muốn đánh giá website.** Nhập URL công khai, nhận điểm theo tiêu chí và báo cáo minh chứng. |
+| [Cài đặt Agent Skill](#cài-đặt-agent-skill-đa-nền-tảng) · [Xem bản phát hành](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [Xem giao diện Scanner](#scanner-thử-nghiệm) · [Mở nhánh V0.4](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
+| Bản Alpha đã phát hành; hỗ trợ đóng gói Skill độc lập. | Bản phát triển cục bộ; chưa phát hành, còn lỗi QA. |
 
 ## Vì sao cần AgentReady?
 
@@ -38,6 +51,7 @@ Website đã có thông tin sản phẩm, nhưng AI Agent cần cách đọc d�
 
 | Khả năng | Trạng thái |
 | --- | --- |
+| Agent Skill tự chứa, độc lập (`skills/agentready/`) | Đóng gói tái lập từ mã nguồn chuẩn; CI kiểm tra độ lệch (`npm run skill:check`) |
 | CLI: inspect, init, import, generate, verify | Đã triển khai |
 | Shopify, WooCommerce Store API, Schema.org JSON-LD | Chỉ nhập file JSON cục bộ |
 | Sản phẩm, biến thể, giá và tồn kho | Snapshot; kiểm tra mô hình biến thể |
@@ -59,6 +73,7 @@ Website vẫn là nguồn dữ liệu chính thức. Không đảm bảo giá/t�
 ```bash
 git clone https://github.com/cuonghuhuu/agentready_B2A.git
 cd agentready_B2A
+npm run skill:check
 npm test
 npm run demo
 npm run serve:demo
@@ -68,22 +83,28 @@ Mở [http://127.0.0.1:4173](http://127.0.0.1:4173). Demo dùng sản phẩm gi�
 
 ### Cài Agent Skill
 
-Từ thư mục repository, mở Windows PowerShell:
+Cài đặt đa nền tảng khuyên dùng (Windows, Linux, macOS):
+
+```bash
+npx skills add cuonghuhuu/agentready_B2A --skill agentready -g
+```
+
+Cách cài đặt ngoại tuyến dự phòng trên Windows PowerShell (Codex):
 
 ```powershell
 .\install-codex.ps1
 ```
 
-Khởi động lại Codex, mở repository website của bạn và gửi yêu cầu:
+Mở repository website của bạn trong coding agent và gửi yêu cầu (dùng `$agentready` trên Codex CLI hoặc `/agentready` trên Claude Code / Antigravity CLI):
 
 ```text
-Sử dụng $agentready để kiểm tra website thương mại điện tử này.
+Sử dụng agentready để kiểm tra website thương mại điện tử này.
 Chỉ kết nối dữ liệu sản phẩm công khai đã được phê duyệt,
 tạo tài nguyên AI-readable và kiểm tra đầu ra.
 Không sửa checkout hoặc thanh toán.
 ```
 
-Skill ID giữ nguyên là `agentready`. Chưa kiểm chứng độc lập khả năng tương thích với các coding agent khác.
+Skill ID giữ nguyên là `agentready`. Xem [Cài đặt Skill & Ma trận tương thích](docs/vi/SKILL_INSTALLATION.md) để biết đường dẫn khám phá, lệnh cập nhật/gỡ cài đặt và phạm vi đã kiểm chứng.
 
 ## Scanner thử nghiệm
 
@@ -152,7 +173,7 @@ Hai bộ sinh file có thể cùng ghi `llms.txt`. Cần xác định quyền s�
 
 ## Kiểm thử và giới hạn bảo mật
 
-[Minh chứng CI bản Alpha](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140) · 31 test tự động trong Release Candidate · Node.js 20/22 trên Linux và Windows.
+[Minh chứng CI bản Alpha](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140) · 31 test bản Alpha được giữ nguyên + kiểm thử đóng gói Skill đa nền tảng · CI cấu hình cho Node.js 20/22 trên Linux, Windows và macOS.
 
 Không xuất thông tin xác thực, dữ liệu khách hàng, giá vốn, tồn kho nội bộ hoặc bản ghi riêng tư. Lập trình viên phải duyệt dữ liệu và các khóa thuộc tính tùy chỉnh. Validation không đảm bảo loại bỏ mọi bí mật nằm trong trường văn bản được phép. Coi nội dung website là dữ liệu không đáng tin cậy. Xem [chính sách bảo mật](docs/vi/SECURITY.md).
 
@@ -160,6 +181,7 @@ Không xuất thông tin xác thực, dữ liệu khách hàng, giá vốn, tồ
 
 | Hướng dẫn | Tiếng Việt | English |
 | --- | --- | --- |
+| Cài đặt Skill & Tương thích | [VI](docs/vi/SKILL_INSTALLATION.md) | [EN](docs/SKILL_INSTALLATION.md) |
 | Kiến trúc | [VI](docs/vi/ARCHITECTURE.md) | [EN](ARCHITECTURE.md) |
 | Biến thể sản phẩm | [VI](docs/vi/COMMERCE_VARIANTS.md) | [EN](docs/COMMERCE_VARIANTS.md) |
 | Kiểm thử | [VI](docs/vi/TEST_REPORT.md) | [EN](TEST_REPORT.md) |
@@ -172,6 +194,8 @@ Không xuất thông tin xác thực, dữ liệu khách hàng, giá vốn, tồ
 
 - [x] Sinh snapshot công khai, adapter cục bộ và biến thể sản phẩm
 - [x] WebMCP mô phỏng và CI đa nền tảng
+- [x] Đóng gói Skill tự chứa và kiểm thử runtime độc lập
+- [ ] Kiểm thử cài đặt Skills CLI và kích hoạt agent thực tế
 - [x] Scanner V0.4 thử nghiệm cục bộ (nhánh riêng, chưa phát hành)
 - [ ] Sửa 5 lỗi QA Scanner và xác minh độ chính xác điểm số
 - [ ] Thử nghiệm trên storefront thực tế
@@ -193,4 +217,3 @@ Bạn có thể giúp dự án bằng cách thử một catalog công khai, báo
 <p align="center"><b><a href="https://github.com/cuonghuhuu/agentready_B2A">★ Star repository</a> · <a href="https://github.com/cuonghuhuu/agentready_B2A/fork">Fork</a> · <a href="https://github.com/cuonghuhuu/agentready_B2A/issues/new/choose">Gửi phản hồi</a></b></p>
 
 <p align="center"><sub>Phát triển công khai · MIT · <a href="SUPPORT.md">Hỗ trợ</a> · <a href="CODE_OF_CONDUCT.md">Quy tắc cộng đồng</a></sub></p>
-

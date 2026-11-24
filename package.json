@@ -16,7 +16,11 @@
     "agentready": "./bin/agentready.mjs"
   },
   "scripts": {
-    "test": "node --test tests/adapters.test.mjs tests/agentmarkup.test.mjs tests/agentready.test.mjs tests/commerce-variants.test.mjs",
+    "test": "node --test tests/adapters.test.mjs tests/agentmarkup.test.mjs tests/agentready.test.mjs tests/commerce-variants.test.mjs tests/skill-distribution.test.mjs",
+    "test:v03": "node --test tests/adapters.test.mjs tests/agentmarkup.test.mjs tests/agentready.test.mjs tests/commerce-variants.test.mjs",
+    "test:skill": "node --test tests/skill-distribution.test.mjs",
+    "skill:package": "node scripts/package-skill.mjs",
+    "skill:check": "node scripts/package-skill.mjs --check",
     "demo": "node bin/agentready.mjs generate --project examples/ecommerce-demo --force && node bin/agentready.mjs verify --project examples/ecommerce-demo",
     "verify:demo": "node bin/agentready.mjs verify --project examples/ecommerce-demo",
     "serve:demo": "node bin/serve-demo.mjs"

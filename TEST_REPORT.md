@@ -50,3 +50,59 @@
 - **Live deployment & inventory:** Live store APIs, real-time stock/price sync, checkout/payment flows, and external agent discovery.
 
 Local file verification does not prove deployed behavior or real-time price and stock.
+
+---
+
+# AgentReady B2A — Verification Report (Universal Agent Skill Distribution)
+
+- **Baseline commit:** `67b49bdd3cd723467d4471a55f1d3e9312b3e6e4` (post-release documentation baseline; release tag unchanged)
+- **Development branch:** `feature/universal-skill-distribution`
+- **V0.4 Scanner branch:** Unmodified (separate branch)
+- **Execution environment:** Linux sandbox, Node.js `v18.20.4`, npm `9.2.0`, Git `2.39.5`
+- **External networking:** Disabled in sandbox environment (`npx skills add` against GitHub/npm registry could not be executed here)
+- **Verification date:** 2026-11-24
+
+> **Environment limitations:**
+> 1. This sandbox provides Node.js `v18.20.4` (`package.json` declares `"engines": { "node": ">=20" }`). Node.js 20 and 22 CI runs (Linux, Windows, macOS) must be executed before merging.
+> 2. Outbound internet access is disabled in this sandbox, so live `npx skills add cuonghuhuu/agentready_B2A --skill agentready -g` installation via the upstream Vercel Skills CLI was **not** run.
+> 3. Live execution inside third-party coding-agent binaries (OpenAI Codex CLI, Anthropic Claude Code, Google Antigravity CLI) was **not** run; only simulated filesystem discovery layouts and isolated CLI execution were verified.
+
+## Executed Checks
+
+### 1. Reproducible Skill Packaging & Drift Detection
+- **Command:** `npm run skill:package && npm run skill:check`
+- **Result:** **Passed** (`ok: true`, `errors: []`, `checkedFileCount: 13`)
+- Verified deterministic SHA-256 manifest (`skills/agentready/scripts/.package-manifest.json`), ESM package metadata (`skills/agentready/scripts/package.json` with `"type": "module"` and zero dependencies), bundled `LICENSE`, `THIRD_PARTY_NOTICES.md`, `references/COMMERCE_VARIANTS.md`, and `references/UPSTREAM.md`.
+
+### 2. Universal Skill Distribution Test Suite
+- **Command:** `npm run test:skill` (`node --test tests/skill-distribution.test.mjs`)
+- **Result:** **4 passed, 0 failed** (`duration_ms: 1088 ms`)
+- **Verified scenarios:**
+  1. `SKILL.md` YAML frontmatter & line-count validation against [agentskills.io/specification](https://agentskills.io/specification) (plus negative validation tests).
+  2. Drift detection: verified `checkSkillPackage()` passes on clean state, fails when a packaged file is modified, recovers after `packageSkill()`, and fails when an unmanaged stale file is added inside `skills/agentready/scripts/`.
+  3. Isolated temporary-directory execution with **spaces and non-ASCII Unicode paths** (`Cài đặt Skill Thử Nghiệm/agentready` -> `Cửa hàng Việt Nam — Demo 2026`) with zero access to the original repository: executed `inspect`, `init`, `import` (Shopify fixture with variants), `generate` (7 public outputs), and `verify` (`ok: true`, `errors: []`).
+  4. Simulated global discovery directory layouts for OpenAI Codex CLI (`$HOME/.agents/skills/agentready`), Anthropic Claude Code (`$HOME/.claude/skills/agentready`), and Google Antigravity CLI (`$HOME/.gemini/config/skills/agentready`) — verified `SKILL.md` spec validity and executable `scripts/agentready.mjs`.
+
+### 3. Full Test Suite (31 Preserved v0.3 Tests + 4 New Skill Distribution Tests)
+- **Command:** `npm test`
+- **Result:** **33 passed, 2 failed** (35 total tests under Node.js `v18.20.4`)
+  - **Passed:** 4/4 `tests/skill-distribution.test.mjs` + 29/31 preserved v0.3 tests (`adapters.test.mjs`, `agentmarkup.test.mjs`, `agentready.test.mjs`, `commerce-variants.test.mjs`).
+  - **Failed (2 pre-existing v0.3 tests under Node `v18.20.4` only, unchanged from baseline):**
+    1. `tests/agentready.test.mjs:103` — Node 18 `SyntaxError: Cannot use import statement outside a module` when dynamically importing generated `webmcp-products.js` from `os.tmpdir()`.
+    2. `tests/commerce-variants.test.mjs:70` — same Node 18 tmpdir ESM limitation.
+
+### 4. Demo Generation, Verification & Patch Integrity
+- **Command:** `npm run demo` — **Passed** (`productCount: 2`, 7 public files generated, `verify` `ok: true`).
+- **Command:** `npm run verify:demo` — **Passed** (`ok: true`, `errors: []`).
+- **Patch check:** `git apply --check` on a clean checkout of baseline `67b49bd` — **Passed**.
+
+## Not Run / Unverified
+- Live `npx skills add cuonghuhuu/agentready_B2A --skill agentready -g` installation via the upstream Vercel Skills CLI (requires outbound internet access).
+- Live activation and end-to-end agent execution inside OpenAI Codex CLI, Anthropic Claude Code, and Google Antigravity CLI binaries.
+- Node.js 20 and 22 execution on Windows, Linux, and macOS (configured in `.github/workflows/ci.yml` with `npm run skill:check`).
+- Real browser WebMCP evaluation (`examples/ecommerce-demo/webmcp-evals.json`) and real Next.js `@agentmarkup/next` build.
+
+## Independent review (2026-11-24)
+
+- Linux Node.js 22.16.0: 35/35 tests passed on reconstructed source and fixtures matching the baseline code, plus the extracted distribution patch. `npm run skill:check` (13 files), `npm run demo`, and `npm run verify:demo` passed.
+- This is not a live Skills CLI installation or agent activation test. Six CI jobs and real client installation remain pending.
