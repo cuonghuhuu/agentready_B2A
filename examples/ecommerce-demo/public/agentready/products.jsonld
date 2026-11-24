@@ -1,0 +1,53 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "AgentReady Fictional Shop Demo public product catalog",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "url": "https://shop.example.com/products/citrus-bloom-demo-edp-30ml",
+      "item": {
+        "@type": "Product",
+        "name": "Citrus Bloom Demo EDP 30ml",
+        "url": "https://shop.example.com/products/citrus-bloom-demo-edp-30ml",
+        "description": "Nước hoa mẫu mang mùi hương cam chanh nhẹ nhàng.",
+        "sku": "DEMO-CITRUS-30",
+        "brand": {
+          "@type": "Brand",
+          "name": "Demo Fragrance"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": 590000,
+          "priceCurrency": "VND",
+          "availability": "https://schema.org/OutOfStock",
+          "url": "https://shop.example.com/products/citrus-bloom-demo-edp-30ml"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "url": "https://shop.example.com/products/woodland-demo-edt-50ml",
+      "item": {
+        "@type": "Product",
+        "name": "Woodland Demo EDT 50ml",
+        "url": "https://shop.example.com/products/woodland-demo-edt-50ml",
+        "description": "Nước hoa mẫu với nhóm hương gỗ, phù hợp môi trường công sở.",
+        "sku": "DEMO-WOOD-50",
+        "brand": {
+          "@type": "Brand",
+          "name": "Demo Fragrance"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": 850000,
+          "priceCurrency": "VND",
+          "availability": "https://schema.org/InStock",
+          "url": "https://shop.example.com/products/woodland-demo-edt-50ml"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "version": "agentready.v0.1",
+  "name": "AgentReady Fictional Shop Demo",
+  "site": "https://shop.example.com",
+  "mode": "snapshot",
+  "productCount": 2,
+  "publicEndpoints": [
+    "/llms.txt",
+    "/agentready/catalog.json",
+    "/agentready/catalog.md",
+    "/agentready/products.jsonld"
+  ],
+  "webmcp": {
+    "asset": "/agentready/webmcp-products.js",
+    "readOnlyTools": [
+      "agentready_search_products",
+      "agentready_get_product"
+    ]
+  },
+  "security": {
+    "mutatingTools": false,
+    "checkout": false,
+    "authenticationBypass": false
+  }
+}

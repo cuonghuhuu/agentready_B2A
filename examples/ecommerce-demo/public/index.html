@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AgentReady B2A — Fictional Shop Demo</title>
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="Public catalog overview" />
+  <style>
+    body{font-family:system-ui,Segoe UI,sans-serif;background:#f4f5f6;color:#162027;max-width:900px;margin:36px auto;padding:0 18px}
+    header{background:#142b2f;color:#fff;border-radius:12px;padding:32px}h1{margin:0 0 8px}
+    .notice{color:#c4e3df}.tools{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap}
+    input{padding:12px;border:1px solid #aab6b9;border-radius:7px;flex:1;min-width:230px}
+    button{background:#0e615c;color:#fff;border:0;border-radius:7px;padding:12px 18px;cursor:pointer}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+    article{background:white;border:1px solid #dbe4e3;border-radius:10px;padding:18px}
+    article h2{font-size:1.2rem;margin:0 0 10px}p{line-height:1.5}
+    .links{margin:18px 0}.links a{margin-right:18px;color:#125c64}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AgentReady B2A — Fictional Shop Demo</h1>
+    <div class="notice">Dữ liệu sản phẩm hoàn toàn giả lập. Không có mua bán hoặc thanh toán thật.</div>
+    <p>Ví dụ cách website công bố catalog cho khách truy cập và AI Agent thông qua dữ liệu có cấu trúc.</p>
+  </header>
+  <nav class="links" aria-label="Public machine readable data">
+    <a href="/llms.txt">llms.txt</a>
+    <a href="/agentready/catalog.json">catalog.json</a>
+    <a href="/agentready/catalog.md">catalog.md</a>
+    <a href="/agentready/products.jsonld">Schema.org JSON-LD</a>
+  </nav>
+  <form class="tools" id="search-form"><input id="query" type="search" placeholder="Tìm theo hương, thương hiệu, danh mục..." aria-label="Tìm sản phẩm"/><button>Tìm</button></form>
+  <main class="grid" id="items" aria-live="polite"></main>
+  <p id="status"></p>
+  <script type="module" src="/agentready/webmcp-products.js"></script>
+  <script>
+    let items=[];
+    const container=document.getElementById('items');
+    const status=document.getElementById('status');
+    function render(query=''){
+      container.replaceChildren();
+      const matched=items.filter(p=>[p.name,p.brand,p.category,p.description,...Object.values(p.attributes||{})].join(' ').toLowerCase().includes(query.toLowerCase()));
+      for(const p of matched){
+        const card=document.createElement('article');
+        const h=document.createElement('h2'); h.textContent=p.name;
+        const brand=document.createElement('p');brand.textContent=`${p.brand} · ${p.category}`;
+        const price=document.createElement('p');price.textContent=`${p.price.toLocaleString('vi-VN')} ${p.currency} · ${p.availability}`;
+        const detail=document.createElement('p');detail.textContent=p.description;
+        card.append(h,brand,price,detail);container.append(card);
+      }
+      status.textContent=`${matched.length} sản phẩm công khai trong bản snapshot.`;
+    }
+    fetch('/agentready/catalog.json').then(r=>{if(!r.ok)throw Error('catalog unavailable');return r.json()}).then(d=>{items=d.products;render()}).catch(()=>{status.textContent='Không tải được catalog.'});
+    document.getElementById('search-form').addEventListener('submit',e=>{e.preventDefault();render(document.getElementById('query').value.trim())});
+  </script>
+</body>
+</html>

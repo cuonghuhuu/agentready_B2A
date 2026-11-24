@@ -1,0 +1,8 @@
+{
+  "siteName": "AgentReady Fictional Shop Demo",
+  "siteUrl": "https://shop.example.com",
+  "siteDescription": "Fictional e-commerce data for local AgentReady toolkit demos only. No real products, transactions, or inventory.",
+  "publicProductsPath": "data/agentready-products.json",
+  "mode": "snapshot",
+  "webmcp": true
+}

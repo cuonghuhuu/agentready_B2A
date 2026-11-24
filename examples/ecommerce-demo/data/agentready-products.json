@@ -1,0 +1,39 @@
+[
+  {
+    "id": "woody-01",
+    "published": true,
+    "name": "Woodland Demo EDT 50ml",
+    "description": "Nước hoa mẫu với nhóm hương gỗ, phù hợp môi trường công sở.",
+    "brand": "Demo Fragrance",
+    "category": "Nước hoa nam",
+    "sku": "DEMO-WOOD-50",
+    "price": 850000,
+    "currency": "VND",
+    "availability": "InStock",
+    "url": "/products/woodland-demo-edt-50ml",
+    "attributes": {"scent_family":"woody", "volume_ml":"50", "occasion":"office"}
+  },
+  {
+    "id": "citrus-02",
+    "published": true,
+    "name": "Citrus Bloom Demo EDP 30ml",
+    "description": "Nước hoa mẫu mang mùi hương cam chanh nhẹ nhàng.",
+    "brand": "Demo Fragrance",
+    "category": "Nước hoa unisex",
+    "sku": "DEMO-CITRUS-30",
+    "price": 590000,
+    "currency": "VND",
+    "availability": "OutOfStock",
+    "url": "/products/citrus-bloom-demo-edp-30ml",
+    "attributes": {"scent_family":"citrus", "volume_ml":"30", "occasion":"daytime"}
+  },
+  {
+    "id": "private-03",
+    "published": false,
+    "name": "Never expose this internal item",
+    "url": "/internal/private-product",
+    "price": 100,
+    "currency": "VND",
+    "availability": "InStock"
+  }
+]

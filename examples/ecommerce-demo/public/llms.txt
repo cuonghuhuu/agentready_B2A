@@ -1,0 +1,13 @@
+# AgentReady Fictional Shop Demo
+
+Fictional e-commerce data for local AgentReady toolkit demos only. No real products, transactions, or inventory.
+
+## Public machine-readable resources
+- [Public product catalog (JSON)](https://shop.example.com/agentready/catalog.json): Published product information (snapshot).
+- [Public product catalog (Markdown)](https://shop.example.com/agentready/catalog.md): Concise product descriptions for agents.
+- [Products JSON-LD](https://shop.example.com/agentready/products.jsonld): Schema.org product offer data (standalone artifact; must integrate in HTML to appear as page structured data).
+
+## Important limitations
+- The product catalog is a build-time snapshot, not a live inventory or transactional API.
+- Checkout and payment require explicit website authentication and user approval.
+- llms.txt is voluntary metadata; no external AI agent is required to consume it.

@@ -1,0 +1,5 @@
+node_modules/
+.evals/
+*.tgz
+.DS_Store
+Thumbs.db
