@@ -28,6 +28,12 @@ AgentReady B2A is an **experimental, open-source toolkit and installable Agent S
 
 WebMCP is experimental and not available in every browser. `llms.txt` is optional metadata; publishing it does **not** guarantee discovery by external agents.
 
+## Development preview: commerce variants (v0.3 slice)
+
+The v0.3 feature branch adds **optional, explicitly published** product variants. Catalog JSON/Markdown and standalone JSON-LD can now represent variant-specific public prices and availability. Read-only WebMCP search provides compact price ranges; detail lookup returns public variants. Existing flat product snapshots remain supported.
+
+See [Commerce variants](docs/COMMERCE_VARIANTS.md) for the input contract, synthetic fashion/electronics fixtures, safeguards, and tests. **This does not yet imply working storefront adapters or live stock synchronization.**
+
 ## Quick start
 
 Requirements: **Node.js 20+** and Git.

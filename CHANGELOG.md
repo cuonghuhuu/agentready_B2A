@@ -4,6 +4,10 @@ Notable documented changes to AgentReady B2A are recorded here. This file descri
 
 ## [Unreleased]
 
+### Added (development)
+- Optional explicitly-published product variant normalization with variant-specific offer metadata.
+- Synthetic fashion and electronics source fixtures and focused variant regression tests.
+
 ### Documentation
 - Added project architecture, contribution, security and community guidance.
 - Improved README with truthful capability matrix, setup instructions, CI/license badges, and limitations.

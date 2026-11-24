@@ -17,6 +17,7 @@ You are an implementation agent. Make useful changes in the target project, not 
    `node <skill>/bin/agentready.mjs init --project <target> --site-name "Store" --site-url https://store.example`
 
 3. Connect the target's actual public data to `data/agentready-products.json` or a safe export. Set `published:true` only for records the site already publishes. Exclude customer data, supplier costs, secrets, private inventory, and internal notes. Do not create an unauthenticated endpoint or bypass existing authorization.
+   If a product has optional `variants`, export only variant records explicitly marked `published:true`. Never infer publication from the parent; keep public `id`, `sku`, `label`, `price`, `currency`, `availability`, same-origin `url`, and approved `attributes` only. See `docs/COMMERCE_VARIANTS.md` in the AgentReady source; current support is snapshot-based.
 4. Generate outputs:
 
    `node <skill>/bin/agentready.mjs generate --project <target>`

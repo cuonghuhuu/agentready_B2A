@@ -43,6 +43,7 @@ The snapshot does not automatically refresh when source products, prices, or sto
 | `skills/agentready/SKILL.md` | Coding-agent workflow and safety instructions |
 | `bin/agentready.mjs` | CLI entry point |
 | `src/core.mjs` | Inspect/init, source validation, public output generation, consistency verification |
+| `src/commerce-model.mjs` | Explicitly-public sellable variant validation and normalization (experimental) |
 | `src/webmcp-products.js` | Read-only browser tool adapter, fetching the public catalog |
 | `src/webmcpify-runtime.js` | Adapted WebMCPify runtime; MIT notice retained |
 | `src/integrations/agentmarkup-next.mjs` | Optional AgentMarkup Next.js configuration helper |
@@ -64,6 +65,10 @@ The snapshot does not automatically refresh when source products, prices, or sto
 - **Level 3:** real Next.js storefront integration, real browser WebMCP Evals, external agent discovery, and live database data — **not yet verified**.
 
 See [TEST_REPORT.md](TEST_REPORT.md) for the latest recorded run.
+
+## Experimental v0.3 extension in development
+
+The commerce variant normalization module (`src/commerce-model.mjs`) filters only explicitly published variants, validates variant identity, price, currency, availability, and same-origin URLs, and exports a small allowlisted shape. It is used by the snapshot generator and read-only WebMCP adapter. Synthetic fashion and electronics catalog fixtures exercise it in CI; they do not constitute live storefront integrations.
 
 ## Explicit non-goals for v0.2
 
