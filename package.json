@@ -14,7 +14,7 @@
     "agentready": "./bin/agentready.mjs"
   },
   "scripts": {
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test tests/agentmarkup.test.mjs tests/agentready.test.mjs",
     "demo": "node bin/agentready.mjs generate --project examples/ecommerce-demo --force && node bin/agentready.mjs verify --project examples/ecommerce-demo",
     "verify:demo": "node bin/agentready.mjs verify --project examples/ecommerce-demo",
     "serve:demo": "node bin/serve-demo.mjs"
