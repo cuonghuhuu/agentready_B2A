@@ -1,10 +1,14 @@
+[Tiếng Việt](docs/vi/CHANGELOG.md) · [Home](README.md)
+
 # Changelog
 
 Notable documented changes to AgentReady B2A are recorded here. This file describes repository development; it does not imply any GitHub Release or npm publication has occurred.
 
 ## [Unreleased]
 
-## [0.3.0-alpha.1] — Release candidate (not yet published)
+- Bilingual documentation and repository presentation; no runtime changes.
+
+## [0.3.0-alpha.1] — 2026-11-24 — [GitHub release](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1)
 
 ### Added (development)
 - Optional explicitly-published product variant normalization (`src/commerce-model.mjs`) with canonical `label`, duplicate SKU/ID checks, parent-currency validation, and variant-specific offer metadata.

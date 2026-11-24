@@ -1,3 +1,5 @@
+[Tiếng Việt](docs/vi/SECURITY.md) · [Home](README.md)
+
 # Security Policy
 
 ## Supported versions
@@ -6,7 +8,8 @@ AgentReady B2A is experimental and pre-stable. Security fixes target the current
 
 | Version | Status |
 | --- | --- |
-| v0.2.x | Current experimental line |
+| v0.3.x alpha | Current experimental line |
+| v0.2.x | Earlier development line |
 | v0.1.x | Prototype; no dedicated security maintenance commitment |
 
 ## Reporting a vulnerability

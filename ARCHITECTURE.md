@@ -1,8 +1,10 @@
-# Architecture — AgentReady B2A (v0.3 development)
+[Tiếng Việt](docs/vi/ARCHITECTURE.md) · [Home](README.md)
+
+# Architecture — AgentReady B2A (v0.3 Alpha)
 
 ## Scope
 
-This document describes the current implementation on the v0.3 development branch, not the long-term universal e-commerce vision.
+This document describes the current implementation in the v0.3 alpha, not the long-term universal e-commerce vision.
 
 AgentReady has two distinct roles:
 
@@ -10,6 +12,8 @@ AgentReady has two distinct roles:
 2. **Optional runtime integration:** a browser-side WebMCP adapter exposes read-only tools against the generated **public snapshot** where the browser supports WebMCP.
 
 ## Data flow
+
+![AgentReady workflow](docs/assets/workflow-en.jpg)
 
 ```text
 Existing storefront (authoritative business data)
