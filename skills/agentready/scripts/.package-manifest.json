@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "skillId": "agentready",
-  "packageVersion": "0.3.0-alpha.1",
+  "packageVersion": "0.3.0-alpha.2",
   "generator": "scripts/package-skill.mjs",
   "files": {
     "LICENSE": {
@@ -31,7 +31,7 @@
     },
     "scripts/package.json": {
       "source": "generated:package.json",
-      "sha256": "fb89df68288e8b1435644da06701ca2ed7c036560523e8ea4d954b58fa31f8d9",
+      "sha256": "daad09846087ca5aa1303f99fd05f559c11515c029a9fb06c691b1863ada3f56",
       "bytes": 261
     },
     "scripts/src/adapters.mjs": {

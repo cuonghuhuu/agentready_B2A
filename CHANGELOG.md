@@ -6,7 +6,15 @@ Notable documented changes to AgentReady B2A are recorded here. This file descri
 
 ## [Unreleased]
 
-- Bilingual documentation and repository presentation; no runtime changes.
+- Release tag for v0.3.0-alpha.2 is pending.
+
+## [0.3.0-alpha.2] — source prepared, not published
+
+- Portable `agentready` skill with its own runtime, license and references.
+- Reproducible packaging and CI drift checks; four distribution tests (35 total).
+- CI PR #8: six passing Node.js 20/22 jobs across Windows, Linux and macOS.
+- Bilingual installation guides with explicit live-client verification limits.
+- No commerce runtime changes or V0.4 Scanner release. See [release notes](docs/RELEASE_ALPHA2.md).
 
 ## [0.3.0-alpha.1] — 2026-11-24 — [GitHub release](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1)
 

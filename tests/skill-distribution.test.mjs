@@ -48,7 +48,7 @@ test('SKILL.md frontmatter conforms to official Agent Skills specification (agen
   assert.equal(res.frontmatter.license, 'MIT');
   assert(res.frontmatter.compatibility.length > 0 && res.frontmatter.compatibility.length <= 500);
   assert.equal(typeof res.frontmatter.metadata, 'object');
-  assert.equal(res.frontmatter.metadata.version, '0.3.0-alpha.1');
+  assert.equal(res.frontmatter.metadata.version, '0.3.0-alpha.2');
   assert(res.lineCount <= 500);
 
   // Negative checks for spec validator

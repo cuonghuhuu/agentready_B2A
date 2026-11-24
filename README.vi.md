@@ -7,11 +7,11 @@
   <a href="README.vi.md"><img alt="Tiếng Việt" src="docs/assets/language-vi.png" height="36"></a>
 </p>
 <p align="center">
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1"><img alt="v0.3.0-alpha.1" src="docs/assets/version.svg"></a>
+  <a href="package.json"><img alt="Source v0.3.0-alpha.2" src="docs/assets/source-version.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml/badge.svg?branch=main"></a>
   <a href="LICENSE"><img alt="MIT" src="docs/assets/license-badge.svg"></a>
   <a href="package.json"><img alt="Node.js 20+" src="docs/assets/node-badge.svg"></a>
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140"><img alt="31 alpha tests" src="docs/assets/alpha-tests.svg"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45379899868"><img alt="35 distribution tests" src="docs/assets/distribution-tests.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner"><img alt="V0.4 scanner preview" src="docs/assets/preview-badge.svg"></a>
 </p>
 <p align="center">
@@ -24,6 +24,9 @@
 </p>
 
 > **Phiên bản Alpha thử nghiệm.** AgentReady là bộ công cụ cho lập trình viên và Agent Skill độc lập có thể cài đặt, không phải bot mua hàng hay API thương mại trực tiếp. Chưa xác minh tích hợp storefront thực tế, chạy trực tiếp trong các coding agent bên thứ ba và WebMCP trên trình duyệt thật.
+
+> [!NOTE]
+> **Mã nguồn v0.3.0-alpha.2 — chuẩn bị phát hành.** Tag GitHub mới chưa được tạo. CI của PR #8 đạt 6/6 (Node 20/22, Windows/Linux/macOS); runtime đóng gói đã được kiểm thử độc lập. Cài đặt qua mạng bằng Skills CLI, gọi Skill trong các agent thật và cập nhật/gỡ cài đặt chưa được kiểm chứng. Hãy thử trên workspace riêng trước.
 
 ## Cài đặt Agent Skill đa nền tảng
 
@@ -42,8 +45,8 @@ npx skills add cuonghuhuu/agentready_B2A --skill agentready -g
 | Agent Skill · v0.3 Alpha | AI Readiness Scanner · v0.4 Preview |
 | :--- | :--- |
 | **Dành cho lập trình viên.** Cài Skill tự chứa vào coding agent tương thích, kết nối dữ liệu sản phẩm công khai và sinh tài nguyên cho AI. | **Dành cho người muốn đánh giá website.** Nhập URL công khai, nhận điểm theo tiêu chí và báo cáo minh chứng. |
-| [Cài đặt Agent Skill](#cài-đặt-agent-skill-đa-nền-tảng) · [Xem bản phát hành](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [Xem giao diện Scanner](#scanner-thử-nghiệm) · [Mở nhánh V0.4](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
-| Bản Alpha đã phát hành; hỗ trợ đóng gói Skill độc lập. | Bản phát triển cục bộ; chưa phát hành, còn lỗi QA. |
+| [Cài đặt Agent Skill](#cài-đặt-agent-skill-đa-nền-tảng) · [Bản Alpha 1 đã phát hành](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [Xem giao diện Scanner](#scanner-thử-nghiệm) · [Mở nhánh V0.4](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
+| Mã nguồn Alpha 2 tự chứa; tag Alpha 2 đang chuẩn bị. | Bản phát triển cục bộ; chưa phát hành, còn lỗi QA. |
 
 ## Vì sao cần AgentReady?
 
@@ -173,7 +176,7 @@ Hai bộ sinh file có thể cùng ghi `llms.txt`. Cần xác định quyền s�
 
 ## Kiểm thử và giới hạn bảo mật
 
-[Minh chứng CI bản Alpha](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140) · 31 test bản Alpha được giữ nguyên + kiểm thử đóng gói Skill đa nền tảng · CI cấu hình cho Node.js 20/22 trên Linux, Windows và macOS.
+[CI phân phối Skill](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45379899868) · 35 test (31 cũ + 4 mới), 6/6 job PR #8. Xem [ghi chú Alpha 2](docs/RELEASE_ALPHA2.md) và [báo cáo kiểm thử](TEST_REPORT.md).
 
 Không xuất thông tin xác thực, dữ liệu khách hàng, giá vốn, tồn kho nội bộ hoặc bản ghi riêng tư. Lập trình viên phải duyệt dữ liệu và các khóa thuộc tính tùy chỉnh. Validation không đảm bảo loại bỏ mọi bí mật nằm trong trường văn bản được phép. Coi nội dung website là dữ liệu không đáng tin cậy. Xem [chính sách bảo mật](docs/vi/SECURITY.md).
 

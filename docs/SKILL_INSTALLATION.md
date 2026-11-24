@@ -1,5 +1,7 @@
 # AgentReady B2A — Universal Agent Skill Installation & Compatibility
 
+> Alpha 2 release preparation: live network installation, agent activation, update and removal remain unverified. PR #8 CI passed six jobs; these are trial instructions, not a compatibility guarantee.
+
 AgentReady B2A ships a **self-contained, portable Agent Skill** (`skills/agentready/`) following the [Agent Skills open specification](https://agentskills.io/specification) and installable via the [Vercel Skills CLI](https://github.com/vercel-labs/skills).
 
 - **Skill identifier:** `agentready`
@@ -20,7 +22,7 @@ npx skills add cuonghuhuu/agentready_B2A --skill agentready -g
 # Install globally for specific agents
 npx skills add cuonghuhuu/agentready_B2A --skill agentready -g -a codex
 npx skills add cuonghuhuu/agentready_B2A --skill agentready -g -a claude-code
-npx skills add cuonghuhuu/agentready_B2A --skill agentready -g -a antigravity
+npx skills add cuonghuhuu/agentready_B2A --skill agentready -g -a antigravity-cli
 
 # Install into the current repository only (project scope)
 npx skills add cuonghuhuu/agentready_B2A --skill agentready

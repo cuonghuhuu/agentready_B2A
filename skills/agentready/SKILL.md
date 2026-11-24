@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires Node.js 20+ (zero external runtime dependencies). Cross-platform on Windows, Linux, and macOS. Optional WebMCP-capable browser for live browser checks.
 metadata:
   author: cuonghuhuu
-  version: "0.3.0-alpha.1"
+  version: "0.3.0-alpha.2"
   repository: https://github.com/cuonghuhuu/agentready_B2A
 ---
 

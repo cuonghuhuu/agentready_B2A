@@ -106,3 +106,10 @@ Local file verification does not prove deployed behavior or real-time price and 
 
 - Linux Node.js 22.16.0: 35/35 tests passed on reconstructed source and fixtures matching the baseline code, plus the extracted distribution patch. `npm run skill:check` (13 files), `npm run demo`, and `npm run verify:demo` passed.
 - This is not a live Skills CLI installation or agent activation test. Six CI jobs and real client installation remain pending.
+
+## Alpha 2 release preparation — 2026-11-24
+
+- [PR #8](https://github.com/cuonghuhuu/agentready_B2A/pull/8), source commit `2170e7a`: [CI](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45379899868) passed all six jobs (Windows/Linux/macOS, Node 20/22).
+- Maintainer's Windows 11 / Node 24.14.0: 13/13 package files matched; 34/35 tests passed. One pre-existing test could not create a symlink (EPERM), so its security assertions were not executed. No elevation or Developer Mode change was performed.
+- Local reconstructed Alpha 2 source, Node 22.16.0 on Linux: regenerated package, drift check 13/13, 35/35 tests, demo and verify passed. Versioned file blob hashes matched the integration tree.
+- Live Skills CLI network installation, agent invocation, update/removal, real storefront and browser WebMCP remain unverified. The new tag is not yet published.

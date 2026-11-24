@@ -7,11 +7,11 @@
   <a href="README.vi.md"><img alt="Tiếng Việt" src="docs/assets/language-vi.png" height="36"></a>
 </p>
 <p align="center">
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1"><img alt="v0.3.0-alpha.1" src="docs/assets/version.svg"></a>
+  <a href="package.json"><img alt="Source v0.3.0-alpha.2" src="docs/assets/source-version.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/cuonghuhuu/agentready_B2A/actions/workflows/ci.yml/badge.svg?branch=main"></a>
   <a href="LICENSE"><img alt="MIT" src="docs/assets/license-badge.svg"></a>
   <a href="package.json"><img alt="Node.js 20+" src="docs/assets/node-badge.svg"></a>
-  <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140"><img alt="31 alpha tests" src="docs/assets/alpha-tests.svg"></a>
+  <a href="https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45379899868"><img alt="35 distribution tests" src="docs/assets/distribution-tests.svg"></a>
   <a href="https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner"><img alt="V0.4 scanner preview" src="docs/assets/preview-badge.svg"></a>
 </p>
 <p align="center">
@@ -24,6 +24,9 @@
 </p>
 
 > **Experimental alpha.** AgentReady is a developer toolkit and portable Agent Skill, not a shopping bot or a live commerce API. Real storefront builds, live third-party agent execution, and browser interoperability are not yet independently verified.
+
+> [!NOTE]
+> **Source v0.3.0-alpha.2 — release preparation.** The new GitHub tag has not been published. PR #8 passed all six CI jobs (Node 20/22 on Windows/Linux/macOS); the packaged runtime passed independent tests. Network installation via Skills CLI, live agent activation and update/removal are not yet verified. Try in a disposable workspace first.
 
 ## Install as a Universal Agent Skill
 
@@ -42,8 +45,8 @@ npx skills add cuonghuhuu/agentready_B2A --skill agentready -g
 | Agent Skill · v0.3 Alpha | AI Readiness Scanner · v0.4 Preview |
 | :--- | :--- |
 | **For developers.** Install the self-contained skill in a compatible coding agent, map approved public commerce data and generate AI-readable resources. | **For website owners and developers.** Enter a public URL, inspect evidence and receive a criterion-based readiness score. |
-| [Install the Agent Skill](#install-as-a-universal-agent-skill) · [Get the release](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [See the scanner](#scanner-preview) · [Open V0.4 branch](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
-| Published alpha; portable packaging is a development update, not part of the existing release tag. | Unreleased local development preview; QA blockers remain. |
+| [Install the Agent Skill](#install-as-a-universal-agent-skill) · [Published Alpha 1](https://github.com/cuonghuhuu/agentready_B2A/releases/tag/v0.3.0-alpha.1) | [See the scanner](#scanner-preview) · [Open V0.4 branch](https://github.com/cuonghuhuu/agentready_B2A/tree/feature/v0.4-ai-readiness-scanner) |
+| Self-contained Alpha 2 source; release tag pending. | Unreleased local development preview; QA blockers remain. |
 
 ## Why AgentReady?
 
@@ -172,7 +175,7 @@ Both generators can write `llms.txt`. Explicitly reconcile file ownership and bu
 
 ## Verification and boundaries
 
-[Alpha CI evidence](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45351681140) · 31 preserved alpha tests + portable skill distribution tests · CI configured for Node.js 20/22 on Linux, Windows, and macOS.
+[Skill distribution CI](https://github.com/cuonghuhuu/agentready_B2A/actions/runs/45379899868) · 35 tests (31 existing + 4 new), six passing PR #8 jobs. See [Alpha 2 notes](docs/RELEASE_ALPHA2.md) and [verification](TEST_REPORT.md).
 
 Never export credentials, customer information, supplier costs, private stock or internal records. The developer must approve public data and custom attribute keys. Catalog validation is not a guarantee against secrets embedded in otherwise approved text fields. Treat website content as untrusted data. See [security policy](SECURITY.md).
 

@@ -20,6 +20,12 @@
 
 Mốc phát triển: Agent Skill, CLI snapshot, helper AgentMarkup, runtime WebMCPify (giữ thông báo MIT), fixture Chrome Labs, CI đa nền tảng. Không mặc định đây là bản GitHub Release riêng.
 
-## Chưa phát hành
+## v0.3.0-alpha.2 — mã nguồn chuẩn bị phát hành
 
-Tài liệu song ngữ, banner và điều hướng. Không thay đổi runtime bản Alpha đã gắn tag.
+- Skill tự chứa, runtime độc lập, giấy phép và tài liệu tham chiếu.
+- Đóng gói tái lập, CI kiểm tra đồng bộ; 35 test (31 cũ + 4 mới).
+- PR #8 đạt 6/6 job Node 20/22 trên Windows/Linux/macOS.
+- Hướng dẫn cài đặt song ngữ; chưa kiểm chứng cài qua mạng và kích hoạt agent thật.
+- Chưa tạo tag Alpha 2; giữ nguyên release Alpha 1 và nhánh Scanner V0.4.
+
+[Ghi chú phát hành Alpha 2](../RELEASE_ALPHA2.md).
