@@ -1,0 +1,65 @@
+[
+  {
+    "id": "tee-100",
+    "published": true,
+    "name": "Everyday Cotton Tee",
+    "brand": "Example Threads",
+    "category": "T-Shirts",
+    "price": 490000,
+    "currency": "VND",
+    "availability": "InStock",
+    "url": "/products/cotton-tee",
+    "attributes": {
+      "material": "cotton"
+    },
+    "variants": [
+      {
+        "id": "black-m",
+        "published": true,
+        "label": "Black / Medium",
+        "sku": "TEE-BLK-M",
+        "price": 490000,
+        "currency": "VND",
+        "availability": "InStock",
+        "url": "/products/cotton-tee?variant=black-m",
+        "attributes": {
+          "color": "black",
+          "size": "M"
+        },
+        "supplierCost": 99000
+      },
+      {
+        "id": "blue-l",
+        "published": true,
+        "label": "Blue / Large",
+        "sku": "TEE-BLU-L",
+        "price": 550000,
+        "currency": "VND",
+        "availability": "OutOfStock",
+        "url": "/products/cotton-tee?variant=blue-l",
+        "attributes": {
+          "color": "blue",
+          "size": "L"
+        }
+      },
+      {
+        "id": "internal-test",
+        "published": false,
+        "label": "Private internal variant",
+        "sku": "INTERNAL-ONLY",
+        "price": 100,
+        "currency": "VND",
+        "availability": "InStock"
+      }
+    ]
+  },
+  {
+    "id": "private-test",
+    "published": false,
+    "name": "Private sample",
+    "price": 999,
+    "currency": "VND",
+    "availability": "InStock",
+    "url": "/admin"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "siteName": "Sample Electronics Store",
+  "siteUrl": "https://electronics.example",
+  "siteDescription": "Fictional public electronics catalog for testing.",
+  "publicProductsPath": "data/agentready-products.json",
+  "mode": "snapshot",
+  "webmcp": true
+}
